@@ -5,6 +5,10 @@ import javax.swing.*;
 
 public class FenetreAchat extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton btAchat;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;

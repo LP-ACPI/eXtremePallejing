@@ -18,26 +18,28 @@ public class Produit implements I_Produit {
 
 	@Override
 	public boolean ajouter(int qteAchetee) {
-		// TODO Auto-generated method stub
-		return false;
+		quantiteStock += qteAchetee;
+		return true;
 	}
 
 	@Override
 	public boolean enlever(int qteVendue) {
-		// TODO Auto-generated method stub
+		int nouvQte = quantiteStock-qteVendue;
+		if(nouvQte >=0 ){
+			quantiteStock = nouvQte;
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public String getNom() {
-		
 		return nom;
 	}
 
 	@Override
 	public int getQuantite() {
-		// TODO Auto-generated method stub
-		return 0;
+		return quantiteStock;
 	}
 
 	@Override
@@ -54,14 +56,13 @@ public class Produit implements I_Produit {
 	public double getPrixStockTTC() {
 		return getPrixUnitaireTTC() * quantiteStock;
 	}
-	
 
 	@Override
 	public String toString() {
-		return nom 
-				+ " prixHT: " + prixUnitaireHT 
-				+ "€ prixTTC: "	+ getPrixUnitaireTTC()
-				+ "€ quantité en stock: " + quantiteStock;
+		return nom +"\t"
+				+ "prixHT: " + prixUnitaireHT + "€\t"
+				+ "prixTTC: "	+ getPrixUnitaireTTC() +"€\t"
+				+ "quantité en stock: " + quantiteStock;
 	}
 
 }

@@ -13,6 +13,10 @@ import Controller.XPControllerAfficheStock;
 public class FenetrePrincipale extends JFrame implements ActionListener,
 		WindowListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
 	private JButton btSupprimerProduit;
@@ -91,9 +95,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 			new FenetreAffichage(AffController.AfficherCatalogue());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
-			new FenetreNouveauProduit();
+			new FenetreNouveauProduit(ControlProds);
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(tabProduits);
+			new FenetreSuppressionProduit(ControlProds);
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
