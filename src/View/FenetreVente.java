@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import Controller.XPControlStock;
+
 public class FenetreVente extends JFrame implements ActionListener {
 
 	/**
@@ -12,8 +14,10 @@ public class FenetreVente extends JFrame implements ActionListener {
 	private JButton btVente;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
+	
+	XPControlStock xpCS;
 
-	public FenetreVente(String[] lesProduits) {
+	public FenetreVente(XPControlStock xpIN) {
 		setTitle("Vente");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();
@@ -22,7 +26,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 		txtQuantite = new JTextField(5);
 		txtQuantite.setText("0");
 
-		combo = new JComboBox<String>(lesProduits);
+		combo = new JComboBox<String>(xpIN.listeNomsProduits());
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
@@ -32,9 +36,17 @@ public class FenetreVente extends JFrame implements ActionListener {
 
 		btVente.addActionListener(this);
 		this.setVisible(true);
+		
+		xpCS = xpIN;
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btVente){
+			xpCS.XPLiquiderStock(
+					combo.getSelectedItem().toString(),
+					Integer.parseInt(txtQuantite.getText())
+				);
+		}
 		this.dispose();
 	}
 

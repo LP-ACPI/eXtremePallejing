@@ -49,7 +49,7 @@ public class Produit implements I_Produit {
 
 	@Override
 	public double getPrixUnitaireTTC() {
-		return prixUnitaireHT * tauxTVA;
+		return prixUnitaireHT + prixUnitaireHT * tauxTVA;
 	}
 
 	@Override
@@ -59,10 +59,10 @@ public class Produit implements I_Produit {
 
 	@Override
 	public String toString() {
-		return nom +"\t"
-				+ "prixHT: " + prixUnitaireHT + "€\t"
-				+ "prixTTC: "	+ getPrixUnitaireTTC() +"€\t"
-				+ "quantité en stock: " + quantiteStock;
+		return "\t" + nom +" | "
+				+ "prixHT: " + prixUnitaireHT + "€ | "
+				+ "prixTTC: "	+ getPrixUnitaireTTC() +"€ | "
+				+ "quantité: " + quantiteStock;
 	}
 
 }

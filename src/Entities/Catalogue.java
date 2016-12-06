@@ -51,14 +51,24 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean acheterStock(String nomProduit, int qteAchetee) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean out = false;
+		for(I_Produit p: lesProduits){
+			if(p.getNom() == nomProduit)
+				if(p.ajouter(qteAchetee))
+					out = true;
+		}
+		return out;
 	}
 
 	@Override
 	public boolean vendreStock(String nomProduit, int qteVendue) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean out = false;
+		for(I_Produit p: lesProduits){
+			if(p.getNom() == nomProduit)
+				if(p.enlever(qteVendue))
+					out = true;
+		}
+		return out;
 	}
 
 	@Override
