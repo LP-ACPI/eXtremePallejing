@@ -782,7 +782,7 @@ public class CatalogueTest {
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.47, 1);
-		assertEquals("on affiche que deux chiffres après la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calcul€ avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
+		assertEquals("on affiche que deux chiffres après la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calculé avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
 	}
 	
 	@Test
@@ -797,12 +797,13 @@ public class CatalogueTest {
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.47, 2);
-		assertEquals("on affiche que deux chiffres après la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calcul€ avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
+		assertEquals("on affiche que deux chiffres après la virgule dans le prix unitaires TTC, mais le montant total TTC du catalogue est calculé avec les prix unitaires TTC non arrondis",resultatAttendu, cat.toString());
 	}
 	
 	@Test
 	public void testClear() {
-		fail("A vous d'€crire le code de ce test");
+		String resultatAttendu = "\nMontant total TTC du stock : 0,00 €";
+		assertEquals("On affiche une liste vide vide produits",resultatAttendu, cat.toString());
 	}
 
 	private I_Produit createProduit(String nom, double prixHT, int quantite) {

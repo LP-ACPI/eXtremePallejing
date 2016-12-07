@@ -11,7 +11,7 @@ public class Produit implements I_Produit {
 	
 	public Produit(String nom, double prixUnitaireHT, int quantiteStock) {
 		super();
-		this.nom = nom;
+		this.nom = nom.replaceAll("[\\t]", " ").trim();
 		this.prixUnitaireHT = prixUnitaireHT;
 		this.quantiteStock = quantiteStock;
 	}
@@ -45,7 +45,7 @@ public class Produit implements I_Produit {
 
 	@Override
 	public double getPrixUnitaireHT() {
-		return (prixUnitaireHT * 100.00) / 100.0;
+		return prixUnitaireHT * 100.00 / 100.0;
 	}
 
 	@Override
@@ -56,8 +56,9 @@ public class Produit implements I_Produit {
 	@Override
 	public double getPrixStockTTC() {
 		double pxTotal = getPrixUnitaireTTC() * quantiteStock;
-		return (pxTotal*100.00) / 100.00;
+		return Math.round(pxTotal*100.00) / 100.00;
 	}
+	
 
 	@Override
 	public String toString() {

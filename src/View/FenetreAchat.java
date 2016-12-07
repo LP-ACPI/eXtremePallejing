@@ -43,6 +43,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		
 		if(e.getSource() == btAchat){
 			xpCS.XPApprovisionnerStock(
 					combo.getSelectedItem().toString(),

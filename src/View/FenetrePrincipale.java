@@ -13,10 +13,8 @@ import Controller.XPControllerAfficheStock;
 public class FenetrePrincipale extends JFrame implements ActionListener,
 		WindowListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
 	private JButton btSupprimerProduit;
@@ -87,8 +85,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 /* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
    Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
-//		String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
 /* M�me chose pour tabCategories (partie 4) */ 		
+
+		/* M�me chose pour tabCategories (partie 4) */ 		
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
@@ -124,7 +123,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
 
-	
 	
 	public static void main(String[] args) {
 		new FenetrePrincipale();
