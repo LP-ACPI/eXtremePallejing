@@ -1,5 +1,6 @@
 package Entities;
 
+
 public class Produit implements I_Produit {
 
 	int quantiteStock;
@@ -44,25 +45,26 @@ public class Produit implements I_Produit {
 
 	@Override
 	public double getPrixUnitaireHT() {
-		return prixUnitaireHT;
+		return (prixUnitaireHT * 100.00) / 100.0;
 	}
 
 	@Override
 	public double getPrixUnitaireTTC() {
-		return prixUnitaireHT + prixUnitaireHT * tauxTVA;
+		return (prixUnitaireHT + prixUnitaireHT * tauxTVA)*100.00/ 100.00;
 	}
 
 	@Override
 	public double getPrixStockTTC() {
-		return getPrixUnitaireTTC() * quantiteStock;
+		double pxTotal = getPrixUnitaireTTC() * quantiteStock;
+		return (pxTotal*100.00) / 100.00;
 	}
 
 	@Override
 	public String toString() {
-		return "\t" + nom +" | "
-				+ "prixHT: " + prixUnitaireHT + "€ | "
-				+ "prixTTC: "	+ getPrixUnitaireTTC() +"€ | "
-				+ "quantité: " + quantiteStock;
+		return nom +" - "
+				+ "prix HT : " + String.format("%.2f", prixUnitaireHT) + " € - "
+				+ "prix TTC : "	+ String.format("%.2f",getPrixUnitaireTTC()) +" € - "
+				+ "quantité en stock : " + quantiteStock;
 	}
-
+	
 }

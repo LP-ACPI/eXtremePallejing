@@ -1,6 +1,8 @@
 package Entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Catalogue implements I_Catalogue{
@@ -14,6 +16,12 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean addProduit(I_Produit produit) {
+		if(produit == null 
+				|| produit.getQuantite() < 0
+				|| produit.getPrixUnitaireHT() <= 0
+				|| lesProduits.contains(produit)) 
+			return false;
+		
 		if(lesProduits.add(produit))
 			return true;
 		return false;
@@ -21,8 +29,15 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {
+		if(prix <= 0 || qte < 0 || nom.contains("\t") || nom.contains("	"))
+			return false;
 		
-		Produit p = new Produit(nom, prix, qte);
+		
+		Produit p = new Produit(nom.trim(), prix, qte);
+		
+		if(lesProduits.contains(p) || hasProductNom(nom.trim()))
+			return false;
+		
 		if(lesProduits.add(p))
 			return true;
 		return false;
@@ -30,10 +45,18 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public int addProduits(List<I_Produit> l) {
+		if(l == null) 
+			return 0;
+		
 		int out = 0;
 		for(I_Produit p: l){
-			lesProduits.add(p);
-			out++;
+			if(p.getQuantite() >= 0 
+					&& p.getPrixUnitaireHT() > 0
+					&& !lesProduits.contains(p)
+					&& !hasProductNom(p.getNom())) {
+				lesProduits.add(p);
+				out++;
+			}
 		}
 		return out;
 	}
@@ -43,14 +66,19 @@ public class Catalogue implements I_Catalogue{
 		boolean out = false;
 		for(I_Produit p: lesProduits){
 			if(p.getNom() == nom)
-				if(lesProduits.remove(p))
+				if(lesProduits.remove(p)){
 					out = true;
+					break;
+				}
 		}
 		return out;
 	}
 
 	@Override
 	public boolean acheterStock(String nomProduit, int qteAchetee) {
+		if(qteAchetee < 0) 
+			return false;
+		
 		boolean out = false;
 		for(I_Produit p: lesProduits){
 			if(p.getNom() == nomProduit)
@@ -62,6 +90,8 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean vendreStock(String nomProduit, int qteVendue) {
+		if(qteVendue < 0) 
+			return false;
 		boolean out = false;
 		for(I_Produit p: lesProduits){
 			if(p.getNom() == nomProduit)
@@ -75,6 +105,9 @@ public class Catalogue implements I_Catalogue{
 	public String[] getNomProduits() {
 		String out[] = new String[lesProduits.size()];
 		int i = 0;
+		
+		alphaSort();
+		
 		for(I_Produit p: lesProduits){
 			out[i++] = p.getNom();
 		}
@@ -88,9 +121,30 @@ public class Catalogue implements I_Catalogue{
 		for(I_Produit p:lesProduits){
 			outTotal += p.getPrixStockTTC();
 		}
-		return outTotal;
+		return Math.ceil(outTotal*100) / 100;
 	}
 	
+	public boolean hasProductNom(String nomProduit){
+		boolean out = false;
+		for(I_Produit p : lesProduits){
+			if(p.getNom() == nomProduit){
+				out = true;
+				break;
+			}
+		}
+		return out;
+	}
+	
+	public void alphaSort(){
+		if (lesProduits.size() > 0) {
+			  Collections.sort(lesProduits, new Comparator<I_Produit>() {
+			      @Override
+			      public int compare(final I_Produit object1, final I_Produit object2) {
+			          return object1.getNom().compareTo(object2.getNom());
+			      }
+			  });
+			}
+	}
 	
 
 	@Override
@@ -101,7 +155,7 @@ public class Catalogue implements I_Catalogue{
 			outPut += p + "\n";
 		}
 		
-		outPut += "\nMontant total TTC du stock: "+getMontantTotalTTC() + "€";
+		outPut += "\nMontant total TTC du stock : "+ String.format("%.2f",getMontantTotalTTC() ) + " €";
 		
 		return outPut;
 	}
