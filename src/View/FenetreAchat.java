@@ -18,7 +18,6 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	XPControlStock xpCS;
 
 	public FenetreAchat(XPControlStock xpIN) {
-
 		setTitle("Achat");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();

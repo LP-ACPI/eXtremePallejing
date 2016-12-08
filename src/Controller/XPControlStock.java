@@ -7,7 +7,6 @@ public class XPControlStock {
 	private Catalogue stock;
 
 	public XPControlStock() {
-		super();
 		this.stock = new Catalogue();
 	}
 	
