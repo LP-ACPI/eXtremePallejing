@@ -45,18 +45,18 @@ public class Produit implements I_Produit {
 
 	@Override
 	public double getPrixUnitaireHT() {
-		return prixUnitaireHT * 100.00 / 100.0;
+		return prixUnitaireHT;
 	}
 
 	@Override
 	public double getPrixUnitaireTTC() {
-		return (prixUnitaireHT + prixUnitaireHT * tauxTVA)*100.00/ 100.00;
+		return (prixUnitaireHT + prixUnitaireHT * tauxTVA);
 	}
 
 	@Override
 	public double getPrixStockTTC() {
 		double pxTotal = getPrixUnitaireTTC() * quantiteStock;
-		return Math.round(pxTotal*100.00) / 100.00;
+		return pxTotal;
 	}
 	
 

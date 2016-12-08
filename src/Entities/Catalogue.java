@@ -120,7 +120,7 @@ public class Catalogue implements I_Catalogue{
 		for(I_Produit p:lesProduits){
 			outTotal += p.getPrixStockTTC();
 		}
-		return Math.ceil(outTotal*100) / 100;
+		return (double)Math.round(outTotal*100) / 100;
 	}
 	
 	public boolean okNumValues(I_Produit p){
