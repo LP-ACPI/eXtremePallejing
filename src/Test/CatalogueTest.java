@@ -8,10 +8,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import Entities.Catalogue;
-import Entities.I_Catalogue;
-import Entities.I_Produit;
-import Entities.Produit;
+import Metier.Catalogue;
+import Metier.I_Catalogue;
+import Metier.I_Produit;
+import Metier.Produit;
 
 
 public class CatalogueTest {
