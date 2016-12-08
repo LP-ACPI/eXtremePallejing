@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import Controller.XPControlProduits;
 import Controller.XPControlStock;
-import Controller.XPControllerAfficheStock;
+import Controller.XPControlAfficheStock;
 
 
 
@@ -24,7 +24,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btVente;
 	private JButton btQuitter;
 	
-	private XPControllerAfficheStock AffController;
+	private XPControlAfficheStock AffController;
 	private XPControlStock ControlStock;
 	private XPControlProduits ControlProds;
 	
@@ -77,7 +77,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		
 		ControlStock =  new XPControlStock();
 		ControlProds =  new XPControlProduits(ControlStock.getCatalogue());
-		AffController = new XPControllerAfficheStock(ControlStock.getCatalogue());
+		AffController = new XPControlAfficheStock(ControlStock.getCatalogue());
 		
 	}
 

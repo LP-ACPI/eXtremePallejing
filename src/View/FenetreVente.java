@@ -1,6 +1,7 @@
 package View;
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import Controller.XPControlStock;
@@ -42,10 +43,16 @@ public class FenetreVente extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btVente){
-			xpCS.XPLiquiderStock(
+			if(!xpCS.XPLiquiderStock(
 					combo.getSelectedItem().toString(),
 					Integer.parseInt(txtQuantite.getText())
-				);
+				)){
+				JOptionPane.showMessageDialog(this,
+						"Merci d'entrer une valeur positive"
+					    + "\net de vérifier que vous avez assez de ce produit en stock",
+					    "Valeur non valide",
+					    JOptionPane.WARNING_MESSAGE);
+			}
 		}
 		this.dispose();
 	}

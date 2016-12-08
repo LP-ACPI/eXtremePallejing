@@ -1,6 +1,7 @@
 package View;
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import Controller.XPControlProduits;
@@ -32,14 +33,26 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 
 		btSupprimer.addActionListener(this);
 		
-		xpcp = xpIn;
 
 		this.setVisible(true);
+		
+		xpcp = xpIn;
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btSupprimer){
-			xpcp.XPEnleverProduit(combo.getSelectedItem().toString());
+			if(xpcp.XPEnleverProduit(combo.getSelectedItem().toString())){
+				JOptionPane.showMessageDialog(this,
+					    "Produit " + combo.getSelectedItem().toString()
+					    + " supprimé!",
+					    "Suppression",
+					    JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this,
+					    "Pas de produit à supprimer",
+					    "Suppression",
+					    JOptionPane.WARNING_MESSAGE);
+			}
 		}
 		this.dispose();
 	}

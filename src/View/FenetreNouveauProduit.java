@@ -1,6 +1,7 @@
 package View;
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import Controller.XPControlProduits;
@@ -20,7 +21,6 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	
 	XPControlProduits xpcp;
 
-//	public FenetreNouveauProduit(String[] lesCategories) {
 	public FenetreNouveauProduit(XPControlProduits xpIn) {	
 
 		setTitle("Creation Produit");
@@ -60,12 +60,33 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == btValider){
-//			if(txtNom.isEmpty() ||)
 			String nom = txtNom.getText();
-			int pxHT = Integer.parseInt(txtPrixHT.getText());
-			int qte = Integer.parseInt(txtQte.getText());
-			Produit p = new Produit(nom,pxHT,qte);
-			xpcp.XPAjouterProduit(p);
+			try {
+
+				int pxHT = Integer.parseInt(txtPrixHT.getText());
+				int qte = Integer.parseInt(txtQte.getText());
+
+				Produit p = new Produit(nom,pxHT,qte);
+				if(!xpcp.XPAjouterProduit(p)){
+					JOptionPane.showMessageDialog(this,
+						    "Apparemment ce produit existe déjà",
+						    "Produit non vlaide",
+						    JOptionPane.WARNING_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this,
+						    "Produit " + nom
+						    + " créé!",
+						    "Suppression",
+						    JOptionPane.INFORMATION_MESSAGE);
+				}
+		    } catch (NumberFormatException i) {
+					JOptionPane.showMessageDialog(this,
+						    "Merci de remplir avec des valeurs valides",
+						    "Valeurs non valides",
+						    JOptionPane.WARNING_MESSAGE);
+				
+		    }
+			
 		}
 		
 		this.dispose();

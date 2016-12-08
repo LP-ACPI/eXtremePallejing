@@ -60,9 +60,11 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean removeProduit(String nom) {
+		if(lesProduits == null || nom.isEmpty()) 
+			return false;
 		boolean out = false;
 		for(I_Produit p: lesProduits){
-			if(p.getNom() == nom)
+			if(p.getNom().equals(nom))
 				if(lesProduits.remove(p)){
 					out = true;
 					break;
@@ -78,7 +80,7 @@ public class Catalogue implements I_Catalogue{
 		
 		boolean out = false;
 		for(I_Produit p: lesProduits){
-			if(p.getNom() == nomProduit)
+			if(p.getNom().equals(nomProduit))
 				if(p.ajouter(qteAchetee)){
 					out = true;
 					break;
@@ -93,7 +95,7 @@ public class Catalogue implements I_Catalogue{
 			return false;
 		boolean out = false;
 		for(I_Produit p: lesProduits){
-			if(p.getNom() == nomProduit)
+			if(p.getNom().equals(nomProduit))
 				if(p.enlever(qteVendue))
 					out = true;
 		}

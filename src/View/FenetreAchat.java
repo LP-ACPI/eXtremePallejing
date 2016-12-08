@@ -44,10 +44,17 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == btAchat){
-			xpCS.XPApprovisionnerStock(
+			if(!xpCS.XPApprovisionnerStock(
 					combo.getSelectedItem().toString(),
 					Integer.parseInt(txtQuantite.getText())
-				);
+				)){
+				JOptionPane.showMessageDialog(this,
+					    "Si vous avez ouvert cette fenêtre, c'est pour "
+					    + "acheter des produits",
+					    "Valeur non valide",
+					    JOptionPane.WARNING_MESSAGE);
+			}
+			  
 		}
 		this.dispose();
 	}
