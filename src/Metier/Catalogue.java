@@ -42,12 +42,12 @@ public class Catalogue implements I_Catalogue{
 	}
 
 	@Override
-	public int addProduits(List<I_Produit> l) {
-		if(l == null) 
+	public int addProduits(List<I_Produit> listP) {
+		if(listP == null) 
 			return 0;
 		
 		int out = 0;
-		for(I_Produit p: l){
+		for(I_Produit p: listP){
 			if(okNumValues(p) 
 					&& !lesProduits.contains(p)
 					&& !hasProductNom(p.getNom())) {
@@ -62,6 +62,7 @@ public class Catalogue implements I_Catalogue{
 	public boolean removeProduit(String nom) {
 		if(lesProduits == null || nom.isEmpty()) 
 			return false;
+		
 		boolean out = false;
 		for(I_Produit p: lesProduits){
 			if(p.getNom().equals(nom))
@@ -93,6 +94,7 @@ public class Catalogue implements I_Catalogue{
 	public boolean vendreStock(String nomProduit, int qteVendue) {
 		if(qteVendue <= 0) 
 			return false;
+		
 		boolean out = false;
 		for(I_Produit p: lesProduits){
 			if(p.getNom().equals(nomProduit))
@@ -125,11 +127,11 @@ public class Catalogue implements I_Catalogue{
 		return (double)Math.round(outTotal*100) / 100;
 	}
 	
-	public boolean okNumValues(I_Produit p){
+	private boolean okNumValues(I_Produit p){
 		return (p.getPrixUnitaireHT()>0 && p.getQuantite()>=0);
 	}
 	
-	public boolean hasProductNom(String nomProduit){
+	private boolean hasProductNom(String nomProduit){
 		boolean out = false;
 		
 		for(I_Produit p : lesProduits){
@@ -141,7 +143,7 @@ public class Catalogue implements I_Catalogue{
 		return out;
 	}
 	
-	public void alphaSort(){
+	private void alphaSort(){
 		if (lesProduits.size() > 0) {
 		  Collections.sort(lesProduits, new Comparator<I_Produit>() {
 		      @Override

@@ -1,16 +1,17 @@
 package Application;
 
-import Metier.Catalogue;
+import Metier.I_Catalogue;
 import Metier.Produit;
 
 public class XPControlProduits {
 
-	private Catalogue produits;
+	private static I_Catalogue produits;
 
-	public XPControlProduits(Catalogue produits) {
-		this.produits = produits;
+	public XPControlProduits(I_Catalogue catalogue) {
+		produits = catalogue;
 	}
 	
+
 	public Boolean XPAjouterProduit(Produit p){
 		return produits.addProduit(p);
 	}

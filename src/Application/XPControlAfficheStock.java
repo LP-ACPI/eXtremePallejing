@@ -1,13 +1,13 @@
 package Application;
 
-import Metier.Catalogue;
+import Metier.I_Catalogue;
 
 public class XPControlAfficheStock {
 	
-	private Catalogue catalog;
+	private static I_Catalogue catalog;
 
-	public XPControlAfficheStock(Catalogue catal){
-		this.catalog = catal;
+	public XPControlAfficheStock(I_Catalogue catal){
+		catalog = catal;
 	}
 
 	public String AfficherCatalogue(){

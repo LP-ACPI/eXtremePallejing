@@ -1,17 +1,18 @@
 package Application;
 
 import Metier.Catalogue;
+import Metier.I_Catalogue;
 
 public class XPControlStock {
 
-	private Catalogue stock;
+	private static I_Catalogue stock;
 
 	public XPControlStock() {
-		this.stock = new Catalogue();
+		stock = new Catalogue();
 	}
-	
-	public Catalogue getCatalogue(){
-		return this.stock;
+		
+	public I_Catalogue getCatalogue(){
+		return stock;
 	}
 	
 	public Boolean XPApprovisionnerStock(String nomProduit, int qte){
