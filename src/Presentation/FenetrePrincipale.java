@@ -23,8 +23,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btVente;
 	private JButton btQuitter;
 	
-	//private static FrontController FC = FrontController.getInstance();
-	
 	
 	public FenetrePrincipale() {
 		
