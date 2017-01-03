@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connexion {
-	private Connection cn;
+	private static Connection cn;
 	private String driver;
 	private String url;
 	private String login;
@@ -23,6 +23,10 @@ public class Connexion {
 	
 	public Connection getConnexion(){
 		return cn;
+	}	
+
+	public void deconnect(){
+		
 	}
 	
 }

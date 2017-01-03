@@ -1,2 +1,7 @@
-/Entities/
+/DAO/
+/Controller/
+/Presentation/
+/View/
+/Application/
+/Metier/
 /Test/

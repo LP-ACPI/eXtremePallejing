@@ -10,7 +10,7 @@ public class XPControlAfficheStock {
 		catalog = catal;
 	}
 
-	public String AfficherCatalogue(){
+	public static String AfficherCatalogue(){
 		return catalog.toString();
 	}
 	

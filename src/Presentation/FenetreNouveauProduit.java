@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import Application.XPControlProduits;
+import Metier.I_Produit;
 import Metier.Produit;
 
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
@@ -19,9 +20,8 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 //	private JComboBox<String> combo;
 	private JButton btValider;
 	
-	XPControlProduits xpcp;
 
-	public FenetreNouveauProduit(XPControlProduits xpIn) {	
+	public FenetreNouveauProduit() {	
 
 		setTitle("Creation Produit");
 		setBounds(500, 500, 200, 250);
@@ -54,7 +54,6 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 		btValider.addActionListener(this);
 		setVisible(true);
 		
-		xpcp = xpIn;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -63,21 +62,22 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 			String nom = txtNom.getText();
 			try {
 
-				int pxHT = Integer.parseInt(txtPrixHT.getText());
+				double pxHT = Double.parseDouble(txtPrixHT.getText());
 				int qte = Integer.parseInt(txtQte.getText());
 
-				Produit p = new Produit(nom,pxHT,qte);
-				if(!xpcp.XPAjouterProduit(p)){
-					JOptionPane.showMessageDialog(this,
-						    "Erreur: ajout d'un nouveau de produit",
-						    "Produit non valide",
-						    JOptionPane.WARNING_MESSAGE);
-				} else {
+				I_Produit p = new Produit(nom,pxHT,qte);
+				if(XPControlProduits.XPAjouterProduit(p)){
 					JOptionPane.showMessageDialog(this,
 						    "Produit " + nom
 						    + " créé!",
 						    "Suppression",
 						    JOptionPane.INFORMATION_MESSAGE);
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(this,
+						    "Apparemment ce produit existe déjà",
+						    "Produit non valide",
+						    JOptionPane.WARNING_MESSAGE);
 				}
 		    } catch (NumberFormatException i) {
 					JOptionPane.showMessageDialog(this,
@@ -89,7 +89,6 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 			
 		}
 		
-		this.dispose();
 	}
 
 }

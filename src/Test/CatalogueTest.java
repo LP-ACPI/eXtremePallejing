@@ -27,7 +27,7 @@ public class CatalogueTest {
 	
 	@Test
 	public void testConstructeurCatalogue() {
-		assertNotNull("cr€er catalogue", cat);
+		assertNotNull("créer catalogue", cat);
 	}
 
 	@Test

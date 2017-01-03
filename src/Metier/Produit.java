@@ -19,14 +19,17 @@ public class Produit implements I_Produit {
 
 	@Override
 	public boolean ajouter(int qteAchetee) {
-		quantiteStock += qteAchetee;
-		return true;
+		if(qteAchetee > 0){
+			quantiteStock += qteAchetee;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public boolean enlever(int qteVendue) {
+	public boolean enlever(int qteVendue) {		
 		int nouvQte = quantiteStock-qteVendue;
-		if(nouvQte >=0 ){
+		if(nouvQte >=0 && qteVendue > 0){
 			quantiteStock = nouvQte;
 			return true;
 		}

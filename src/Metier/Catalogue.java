@@ -59,49 +59,25 @@ public class Catalogue implements I_Catalogue{
 	}
 
 	@Override
-	public boolean removeProduit(String nom) {
-		if(lesProduits == null || nom.isEmpty()) 
-			return false;
-		
-		boolean out = false;
-		for(I_Produit p: lesProduits){
-			if(p.getNom().equals(nom))
-				if(lesProduits.remove(p)){
-					out = true;
-					break;
-				}
-		}
-		return out;
+	public boolean removeProduit(String nom) {		
+		if(!(lesProduits == null) && hasProductNom(nom))
+			return lesProduits.remove(getProduitByName(nom));
+		return false;
 	}
 
 	@Override
 	public boolean acheterStock(String nomProduit, int qteAchetee) {
-		if(qteAchetee <= 0) 
+		if(!hasProductNom(nomProduit))
 			return false;
+		return getProduitByName(nomProduit).ajouter(qteAchetee);
 		
-		boolean out = false;
-		for(I_Produit p: lesProduits){
-			if(p.getNom().equals(nomProduit))
-				if(p.ajouter(qteAchetee)){
-					out = true;
-					break;
-				}
-		}
-		return out;
 	}
 
 	@Override
 	public boolean vendreStock(String nomProduit, int qteVendue) {
-		if(qteVendue <= 0) 
+		if(!hasProductNom(nomProduit))
 			return false;
-		
-		boolean out = false;
-		for(I_Produit p: lesProduits){
-			if(p.getNom().equals(nomProduit))
-				if(p.enlever(qteVendue))
-					out = true;
-		}
-		return out;
+		return getProduitByName(nomProduit).enlever(qteVendue);
 	}
 
 	@Override
@@ -132,15 +108,7 @@ public class Catalogue implements I_Catalogue{
 	}
 	
 	private boolean hasProductNom(String nomProduit){
-		boolean out = false;
-		
-		for(I_Produit p : lesProduits){
-			if(p.getNom().equals(nomProduit)){
-				out = true;
-				break;
-			}
-		}
-		return out;
+		return getProduitByName(nomProduit) != null;
 	}
 	
 	private void alphaSort(){
@@ -153,6 +121,21 @@ public class Catalogue implements I_Catalogue{
 		  });
 		}
 	}
+
+	@Override
+	public I_Produit getProduitByName(String nomP){
+		I_Produit out = null;
+		
+		for(I_Produit p : lesProduits){
+			if(p.getNom().equals(nomP)){
+				out = p;
+				break;
+			}
+		}
+		return out;
+	}
+	
+	
 	
 
 	@Override

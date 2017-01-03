@@ -4,9 +4,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import Application.FrontController;
 import Application.XPControlAfficheStock;
-import Application.XPControlProduits;
-import Application.XPControlStock;
 
 
 
@@ -24,9 +23,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btVente;
 	private JButton btQuitter;
 	
-	private XPControlAfficheStock AffController;
-	private XPControlStock ControlStock;
-	private XPControlProduits ControlProds;
+	//private static FrontController FC = FrontController.getInstance();
+	
 	
 	public FenetrePrincipale() {
 		
@@ -75,10 +73,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		setVisible(true);
 		
 		
-		ControlStock =  new XPControlStock();
-		ControlProds =  new XPControlProduits(ControlStock.getCatalogue());
-		AffController = new XPControlAfficheStock(ControlStock.getCatalogue());
-		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -91,28 +85,30 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage(AffController.AfficherCatalogue());
+			new FenetreAffichage(XPControlAfficheStock.AfficherCatalogue());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
-			new FenetreNouveauProduit(ControlProds);
+			new FenetreNouveauProduit();
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(ControlProds);
+			new FenetreSuppressionProduit();
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(ControlStock);
+			new FenetreAchat();
 		if (e.getSource() == btVente)
-			new FenetreVente(ControlStock);
+			new FenetreVente();
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
+			FrontController.quit();
 			System.exit(0);
 		}	
 	}
 
 	public void windowClosing(WindowEvent arg0) {
 		System.out.println("Au revoir");
+		FrontController.quit();
 		System.exit(0);
 	}
 
@@ -123,9 +119,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
 
-	
-	public static void main(String[] args) {
-		new FenetrePrincipale();
-	}
+
 
 }
