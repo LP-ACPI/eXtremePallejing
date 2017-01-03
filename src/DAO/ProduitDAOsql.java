@@ -13,9 +13,9 @@ import Metier.Produit;
 
 public class  ProduitDAOsql implements I_ProduitDAO{
 	
-	private PreparedStatement statement;
-	private ResultSet resultSet;
-	private Connection connexion;
+	private static PreparedStatement statement;
+	private static ResultSet resultSet;
+	private static Connection connexion;
 	
 	public ProduitDAOsql(String driver,String url,String login,String mdp) throws ClassNotFoundException, SQLException{
 		
@@ -28,7 +28,7 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 		String insert = "INSERT INTO Produits(nomProduit,quantiteProduit,prixProduit)"
 				+ "Values(?,?,?)";
 		try {
-			statement = connexion.prepareStatement(insert);
+			setStatement(connexion.prepareStatement(insert));
 			statement.setString(1, p.getNom());
 			statement.setInt(2, p.getQuantite());
 			statement.setDouble(3, p.getPrixUnitaireHT());
@@ -49,7 +49,7 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 		String update = "UPDATE Produits SET quantiteProduit=?,prixProduit=?"
 				+ " WHERE nomProduit=?";
 		try {
-			statement = connexion.prepareStatement(update);
+			setStatement(connexion.prepareStatement(update));
 			statement.setInt(1, p.getQuantite());
 			statement.setDouble(2, p.getPrixUnitaireHT());
 			statement.setString(3, p.getNom());
@@ -69,7 +69,7 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 		String delete = "DELETE FROM Produits"
 			+ " WHERE nomProduit=?";
 		try {
-			statement = connexion.prepareStatement(delete);
+			setStatement(connexion.prepareStatement(delete));
 			statement.setString(1,nomProduit);
 			
 			setResultSet(statement.executeQuery());
@@ -87,7 +87,7 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 		String find = "SELECT * FROM Produits"
 			+ " WHERE nomProduit=?";
 		try {
-			statement = connexion.prepareStatement(find);
+			setStatement(connexion.prepareStatement(find));
 			statement.setString(1, nomP);
 			
 			setResultSet(statement.executeQuery());
@@ -103,7 +103,7 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 		try {
 			nom = getResultSet().getString("nomProduit");
 			qte = getResultSet().getInt("quantiteProduit");
-			px = getResultSet().getDouble("prixProduit");
+			px  = getResultSet().getDouble("prixProduit");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -120,7 +120,7 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 		I_Catalogue catal = new Catalogue();
 		
 		try {
-			statement = connexion.prepareStatement(all);
+			setStatement(connexion.prepareStatement(all));
 			setResultSet(statement.executeQuery());
 			
 			while(getResultSet().next()){
@@ -135,28 +135,24 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 		}
 		
 		return catal;
+	}	
+	
+	private void setStatement(PreparedStatement statement) {
+		ProduitDAOsql.statement = statement;
 	}
 
-	public ResultSet getResultSet() {
+	private ResultSet getResultSet() {
 		return resultSet;
 	}
 
-	public void setResultSet(ResultSet rs) {
-		this.resultSet = rs;
-	}
-
-	public Connection getConnection() {
-		return connexion;
-	}
-
-	public void setConnection(Connection cn) {
-		this.connexion = cn;
+	private void setResultSet(ResultSet rs) {
+		ProduitDAOsql.resultSet = rs;
 	}
 
 	@Override
 	public void deconnect() {
 		try {
-			resultSet.close();
+			getResultSet().close();
 			statement.close();
 			connexion.close();
 		} catch (SQLException e) {

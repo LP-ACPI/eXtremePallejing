@@ -14,24 +14,24 @@ public class XPControlStock {
 		return stock;
 	}
 	
+	public void setCatalogue(I_Catalogue catal){
+		stock = catal;
+	}
+	
 	public static Boolean XPApprovisionnerStock(String nomProduit, int qte){
-		Boolean out = stock.acheterStock(nomProduit, qte);
-		out &= FrontController.getPDAO().update(stock.getProduitByName(nomProduit));
-		return out;
+		if(stock.acheterStock(nomProduit, qte))
+			return FrontController.getPDAO().update(stock.getProduitByName(nomProduit));
+		return false;
 	}
 	
 	public static Boolean XPLiquiderStock(String nomProduit, int qte){
-		Boolean out = stock.vendreStock(nomProduit, qte);
-		out &= FrontController.getPDAO().update(stock.getProduitByName(nomProduit));
-		return out;
+		if(stock.vendreStock(nomProduit, qte))
+			return FrontController.getPDAO().update(stock.getProduitByName(nomProduit));
+		return false;
 	}
 	
-
 	public static String[] listeNomsProduits(){
 		return stock.getNomProduits();
 	}
-	
-
-	
 
 }

@@ -10,7 +10,6 @@ import Presentation.FenetrePrincipale;
 
 public class FrontController {
 
-
 	private static FrontController instance;
 	
 	private static I_ProduitDAO PDAO;
@@ -33,11 +32,12 @@ public class FrontController {
 			e.printStackTrace();
 		}
 		setProduits(getPDAO().findAll());		
+		setAffStock(new XPControlAfficheStock(getProduits()));
 		setControlStock(new XPControlStock(getProduits()));
 		setControlProduit(new XPControlProduits(getProduits()));
-		setAffStock(new XPControlAfficheStock(getProduits()));
-		new FenetrePrincipale();
 		FrontController.instance = this;
+		
+		new FenetrePrincipale();
 	}
 	
 	public synchronized static FrontController getInstance(){
@@ -46,7 +46,6 @@ public class FrontController {
 		}
 		return instance;
 	}
-	
 	
 	public static I_Catalogue getProduits() {
 		return produits;
@@ -68,6 +67,9 @@ public class FrontController {
 		FrontController.affStock = affStock;
 	}
 	
+	public static void setPDAO(I_ProduitDAO pDAO) {
+		FrontController.PDAO = pDAO;
+	}
 
 	public static XPControlStock getControlStock() {
 		return controlStock;
@@ -81,12 +83,9 @@ public class FrontController {
 		return affStock;
 	}
 
+
 	public static I_ProduitDAO getPDAO() {
 		return PDAO;
-	}
-
-	public static void setPDAO(I_ProduitDAO pDAO) {
-		PDAO = pDAO;
 	}
 
 	public static void quit(){

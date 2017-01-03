@@ -23,7 +23,6 @@ public class FenetreAffichage extends JFrame implements ActionListener {
 		JTextArea jtaSortie = new JTextArea(texte,10,5);
 		btOK = new JButton("Quitter");
 		
-		
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		

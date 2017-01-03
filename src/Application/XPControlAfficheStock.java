@@ -14,6 +14,14 @@ public class XPControlAfficheStock {
 		return catalog.toString();
 	}
 	
+	public static I_Catalogue getCatalog() {
+		return catalog;
+	}
+
+	public static void setCatalog(I_Catalogue catalog) {
+		XPControlAfficheStock.catalog = catalog;
+	}
+
 	
 	
 }
