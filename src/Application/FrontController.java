@@ -1,10 +1,7 @@
 package Application;
 
-
-import java.sql.SQLException;
-
 import DAO.I_ProduitDAO;
-import DAO.ProduitDAOsql;
+import Fabrique.FabriqueProduitPDAOrelationnel;
 import Metier.I_Catalogue;
 import Presentation.FenetrePrincipale;
 
@@ -13,30 +10,16 @@ public class FrontController {
 	private static FrontController instance;
 	
 	private static I_ProduitDAO PDAO;
-	private static I_Catalogue produits;
 	private static XPControlStock controlStock;
 	private static XPControlProduits controlProduit;
 	private static XPControlAfficheStock affStock;
 	
-	public FrontController(){
-
-		String driver 	= "oracle.jdbc.driver.OracleDriver";
-		String url 		= "jdbc:oracle:thin:@162.38.222.149:1521:iut";
-		String login 	= "necesanym";
-		String mdp 		= "Neces#9A";
-		
-		try {
-			setPDAO(new ProduitDAOsql(driver,url,login,mdp));
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setProduits(getPDAO().findAll());		
-		setAffStock(new XPControlAfficheStock(getProduits()));
-		setControlStock(new XPControlStock(getProduits()));
-		setControlProduit(new XPControlProduits(getProduits()));
-		FrontController.instance = this;
-		
+	public FrontController(){		
+		setPDAO(FabriqueProduitPDAOrelationnel.CreateProduitPDAO());
+		I_Catalogue catalogue = getPDAO().findAll();
+		setAffStock(new XPControlAfficheStock(catalogue));
+		setControlStock(new XPControlStock(catalogue));
+		setControlProduit(new XPControlProduits(catalogue));	
 		new FenetrePrincipale();
 	}
 	
@@ -45,14 +28,6 @@ public class FrontController {
 			instance = new FrontController();
 		}
 		return instance;
-	}
-	
-	public static I_Catalogue getProduits() {
-		return produits;
-	}
-
-	public static void setProduits(I_Catalogue produits) {
-		FrontController.produits = produits;
 	}
 
 	public static void setControlStock(XPControlStock controlStock) {
@@ -83,7 +58,6 @@ public class FrontController {
 		return affStock;
 	}
 
-
 	public static I_ProduitDAO getPDAO() {
 		return PDAO;
 	}
@@ -94,7 +68,7 @@ public class FrontController {
 	
 
 	public static void main(String[] args) {
-		new FrontController();
+		FrontController.getInstance();
 	}
 
 }

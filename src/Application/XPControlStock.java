@@ -6,27 +6,27 @@ public class XPControlStock {
 
 	private static I_Catalogue stock;
 
-	public XPControlStock(I_Catalogue catal) {
-		stock = catal;
+	public XPControlStock(I_Catalogue catalogue) {
+		stock = catalogue;
 	}
 	
 	public I_Catalogue getCatalogue(){
 		return stock;
 	}
 	
-	public void setCatalogue(I_Catalogue catal){
-		stock = catal;
+	public void setCatalogue(I_Catalogue catalogue){
+		stock = catalogue;
 	}
 	
-	public static Boolean XPApprovisionnerStock(String nomProduit, int qte){
-		if(stock.acheterStock(nomProduit, qte))
-			return FrontController.getPDAO().update(stock.getProduitByName(nomProduit));
+	public static Boolean XPApprovisionnerStock(String nomProduit, int quantite){
+		if(stock.acheterStock(nomProduit, quantite))
+			return true;
 		return false;
 	}
 	
-	public static Boolean XPLiquiderStock(String nomProduit, int qte){
-		if(stock.vendreStock(nomProduit, qte))
-			return FrontController.getPDAO().update(stock.getProduitByName(nomProduit));
+	public static Boolean XPLiquiderStock(String nomProduit, int quantite){
+		if(stock.vendreStock(nomProduit, quantite))
+			return true;
 		return false;
 	}
 	

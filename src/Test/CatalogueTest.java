@@ -522,7 +522,7 @@ public class CatalogueTest {
 		cat.addProduit("Mars", 10, 5);
 		cat.addProduit("Treets", 10, 0);
 		cat.addProduit("Raider", 12, 3);
-		assertFalse("vendre quantité n€gative", cat.vendreStock("Mars", -4));
+		assertFalse("vendre quantité négative", cat.vendreStock("Mars", -4));
 	}	
 	
 	@Test

@@ -1,7 +1,6 @@
-/DAO/
-/Controller/
-/Presentation/
-/View/
 /Application/
 /Metier/
+/Fabriques/
+/DAO/
+/Fabrique/
 /Test/

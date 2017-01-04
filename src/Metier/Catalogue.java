@@ -1,9 +1,10 @@
 package Metier;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
+
+import Application.FrontController;
 
 public class Catalogue implements I_Catalogue{
 
@@ -16,41 +17,28 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean addProduit(I_Produit produit) {
-		if(produit == null 
-				|| !okNumValues(produit)
-				|| lesProduits.contains(produit)
-				|| hasProductNom(produit.getNom())) 
-			return false;
-
-		if(lesProduits.add(produit))
-			return true;
+		if(accepterProduit(produit))
+			return lesProduits.add(produit);
 		return false;
 	}
 
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {		
 		Produit p = new Produit(nom, prix, qte);
-		
-		if(lesProduits.contains(p) 
-				|| hasProductNom(nom.trim())
-				|| !okNumValues(p))
-			return false;
-		
-		if(lesProduits.add(p))
-			return true;
+		if(accepterProduit(p))
+			return lesProduits.add(p);				 
 		return false;
 	}
 
 	@Override
 	public int addProduits(List<I_Produit> listP) {
-		if(listP == null) 
-			return 0;
-		
 		int out = 0;
+		
+		if(listP == null)
+			return out;
+		
 		for(I_Produit p: listP){
-			if(okNumValues(p) 
-					&& !lesProduits.contains(p)
-					&& !hasProductNom(p.getNom())) {
+			if(accepterProduit(p)) {
 				lesProduits.add(p);
 				out++;
 			}
@@ -59,39 +47,46 @@ public class Catalogue implements I_Catalogue{
 	}
 
 	@Override
-	public boolean removeProduit(String nom) {		
-		if(!(lesProduits == null) && hasProductNom(nom))
-			return lesProduits.remove(getProduitByName(nom));
+	public boolean removeProduit(String nomProduit) {		
+		if(!(lesProduits == null) && hasProductNom(nomProduit))
+			return lesProduits.remove(getProduitParNom(nomProduit));
 		return false;
 	}
 
 	@Override
 	public boolean acheterStock(String nomProduit, int qteAchetee) {
-		if(!hasProductNom(nomProduit))
-			return false;
-		return getProduitByName(nomProduit).ajouter(qteAchetee);
-		
+		if(!(lesProduits == null) && hasProductNom(nomProduit)){
+			I_Produit produit = getProduitParNom(nomProduit);
+			if(produit.ajouter(qteAchetee))
+				return FrontController.getPDAO() == null ? 
+						true : FrontController.getPDAO().update(produit);
+		}		
+		return false;
 	}
 
 	@Override
 	public boolean vendreStock(String nomProduit, int qteVendue) {
-		if(!hasProductNom(nomProduit))
-			return false;
-		return getProduitByName(nomProduit).enlever(qteVendue);
+		if(!(lesProduits == null) && hasProductNom(nomProduit)){
+			I_Produit produit = getProduitParNom(nomProduit);
+			if(produit.enlever(qteVendue))
+				return FrontController.getPDAO() == null ? 
+						true : FrontController.getPDAO().update(produit);
+		}		
+		return false;
 	}
 
 	@Override
 	public String[] getNomProduits() {
-		String out[] = new String[lesProduits.size()];
+		String outNomsProduits[] = new String[lesProduits.size()];
 		int i = 0;
 		
-		alphaSort();
-		
 		for(I_Produit p: lesProduits){
-			out[i++] = p.getNom();
+			outNomsProduits[i++] = p.getNom();
 		}
+		
+		Arrays.sort(outNomsProduits);
 
-		return out;
+		return outNomsProduits;
 	}
 
 	@Override
@@ -103,40 +98,39 @@ public class Catalogue implements I_Catalogue{
 		return (double)Math.round(outTotal*100) / 100;
 	}
 	
-	private boolean okNumValues(I_Produit p){
-		return (p.getPrixUnitaireHT()>0 && p.getQuantite()>=0);
-	}
-	
-	private boolean hasProductNom(String nomProduit){
-		return getProduitByName(nomProduit) != null;
-	}
-	
-	private void alphaSort(){
-		if (lesProduits.size() > 0) {
-		  Collections.sort(lesProduits, new Comparator<I_Produit>() {
-		      @Override
-		      public int compare(final I_Produit object1, final I_Produit object2) {
-		          return object1.getNom().compareTo(object2.getNom());
-		      }
-		  });
+	private Boolean accepterProduit(I_Produit produit){
+		Boolean ok = produit != null;
+		if(ok){
+			ok &= produit.getPrixUnitaireHT()>0;
+			ok &= produit.getQuantite()>=0;
+			ok &= !lesProduits.contains(produit);
+			ok &= !hasProductNom(produit.getNom().trim());
 		}
+		return ok;
 	}
-
-	@Override
-	public I_Produit getProduitByName(String nomP){
-		I_Produit out = null;
+	
+//	private Boolean acceptAjoutPDAO(I_Produit produit){
+//		Boolean ok = FrontController.getPDAO() != null;
+//		if(ok)
+//			ok &= FrontController.getPDAO().find(produit.getNom()) == null;
+//		return ok;
+//	}
+	
+	private Boolean hasProductNom(String nomProduit){
+		return getProduitParNom(nomProduit) != null;
+	}
+	
+	private I_Produit getProduitParNom(String nomProduit){
+		I_Produit outProduit = null;
 		
 		for(I_Produit p : lesProduits){
-			if(p.getNom().equals(nomP)){
-				out = p;
+			if(p.getNom().equals(nomProduit)){
+				outProduit = p;
 				break;
 			}
 		}
-		return out;
+		return outProduit;
 	}
-	
-	
-	
 
 	@Override
 	public String toString() {
@@ -154,7 +148,6 @@ public class Catalogue implements I_Catalogue{
 	@Override
 	public void clear() {
 		lesProduits.clear();
-		
 	}
 
 }

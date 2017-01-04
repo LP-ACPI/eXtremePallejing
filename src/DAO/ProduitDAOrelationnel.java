@@ -6,18 +6,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import Metier.Catalogue;
 import Metier.I_Catalogue;
+import Metier.Catalogue;
 import Metier.I_Produit;
 import Metier.Produit;
 
-public class  ProduitDAOsql implements I_ProduitDAO{
+public class  ProduitDAOrelationnel implements I_ProduitDAO{
 	
 	private static PreparedStatement statement;
 	private static ResultSet resultSet;
 	private static Connection connexion;
 	
-	public ProduitDAOsql(String driver,String url,String login,String mdp) throws ClassNotFoundException, SQLException{
+	public ProduitDAOrelationnel(String driver,String url,String login,String mdp) throws ClassNotFoundException, SQLException{
 		
 		Class.forName(driver);
 		connexion = DriverManager.getConnection(url,login,mdp);
@@ -45,7 +45,6 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 
 	@Override
 	public boolean update(I_Produit p){
-		
 		String update = "UPDATE Produits SET quantiteProduit=?,prixProduit=?"
 				+ " WHERE nomProduit=?";
 		try {
@@ -86,6 +85,8 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 	public I_Produit find(String nomP){
 		String find = "SELECT * FROM Produits"
 			+ " WHERE nomProduit=?";
+		I_Produit out = null;
+		
 		try {
 			setStatement(connexion.prepareStatement(find));
 			statement.setString(1, nomP);
@@ -101,22 +102,23 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 		double px = 0;
 		
 		try {
-			nom = getResultSet().getString("nomProduit");
-			qte = getResultSet().getInt("quantiteProduit");
-			px  = getResultSet().getDouble("prixProduit");
+			while(getResultSet().next()){
+				nom = getResultSet().getString("nomProduit");
+				qte = getResultSet().getInt("quantiteProduit");
+				px  = getResultSet().getDouble("prixProduit");
+				out = new Produit(nom,px,qte);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return new Produit(nom,px,qte);	
+		return out;
 	}
 	
-	
-
 	@Override
 	public I_Catalogue findAll(){
-		String all = "SELECT * FROM Produits";
+		String all = "SELECT * FROM PRODUITS";
 		I_Catalogue catal = new Catalogue();
 		
 		try {
@@ -124,9 +126,9 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 			setResultSet(statement.executeQuery());
 			
 			while(getResultSet().next()){
-				String nom = getResultSet().getString("nomProduit");
-				int qte = getResultSet().getInt("quantiteProduit");
-				double px = getResultSet().getDouble("prixProduit");
+				String nom	= getResultSet().getString("nomProduit");
+				int qte 	= getResultSet().getInt("quantiteProduit");
+				double px 	= getResultSet().getDouble("prixProduit");
 				catal.addProduit(nom, px, qte);
 			}
 		} catch (SQLException e) {
@@ -138,7 +140,7 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 	}	
 	
 	private void setStatement(PreparedStatement statement) {
-		ProduitDAOsql.statement = statement;
+		ProduitDAOrelationnel.statement = statement;
 	}
 
 	private ResultSet getResultSet() {
@@ -146,7 +148,7 @@ public class  ProduitDAOsql implements I_ProduitDAO{
 	}
 
 	private void setResultSet(ResultSet rs) {
-		ProduitDAOsql.resultSet = rs;
+		ProduitDAOrelationnel.resultSet = rs;
 	}
 
 	@Override
