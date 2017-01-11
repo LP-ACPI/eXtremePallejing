@@ -1,6 +1,7 @@
 package Application;
 
 import Metier.I_Catalogue;
+import Metier.I_Produit;
 
 public class XPControlStock {
 
@@ -19,14 +20,18 @@ public class XPControlStock {
 	}
 	
 	public static Boolean XPApprovisionnerStock(String nomProduit, int quantite){
-		if(stock.acheterStock(nomProduit, quantite))
-			return true;
+		if(stock.acheterStock(nomProduit, quantite)){
+			I_Produit p = FrontController.getPDAO().find(nomProduit);
+			return FrontController.getPDAO().update(p);
+		}
 		return false;
 	}
 	
 	public static Boolean XPLiquiderStock(String nomProduit, int quantite){
-		if(stock.vendreStock(nomProduit, quantite))
-			return true;
+		if(stock.vendreStock(nomProduit, quantite)){
+			I_Produit p = FrontController.getPDAO().find(nomProduit);
+			return FrontController.getPDAO().update(p);
+		}
 		return false;
 	}
 	

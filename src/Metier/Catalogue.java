@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import Application.FrontController;
-
 public class Catalogue implements I_Catalogue{
 
 	private List<I_Produit> lesProduits;
@@ -57,9 +55,7 @@ public class Catalogue implements I_Catalogue{
 	public boolean acheterStock(String nomProduit, int qteAchetee) {
 		if(!(lesProduits == null) && hasProductNom(nomProduit)){
 			I_Produit produit = getProduitParNom(nomProduit);
-			if(produit.ajouter(qteAchetee))
-				return FrontController.getPDAO() == null ? 
-						true : FrontController.getPDAO().update(produit);
+			return produit.ajouter(qteAchetee);
 		}		
 		return false;
 	}
@@ -68,10 +64,8 @@ public class Catalogue implements I_Catalogue{
 	public boolean vendreStock(String nomProduit, int qteVendue) {
 		if(!(lesProduits == null) && hasProductNom(nomProduit)){
 			I_Produit produit = getProduitParNom(nomProduit);
-			if(produit.enlever(qteVendue))
-				return FrontController.getPDAO() == null ? 
-						true : FrontController.getPDAO().update(produit);
-		}		
+			return produit.enlever(qteVendue);	
+		}
 		return false;
 	}
 
