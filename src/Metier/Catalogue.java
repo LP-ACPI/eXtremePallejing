@@ -56,7 +56,7 @@ public class Catalogue implements I_Catalogue{
 		if(!(lesProduits == null) && hasProductNom(nomProduit)){
 			I_Produit produit = getProduitParNom(nomProduit);
 			return produit.ajouter(qteAchetee);
-		}		
+		}
 		return false;
 	}
 
@@ -64,7 +64,7 @@ public class Catalogue implements I_Catalogue{
 	public boolean vendreStock(String nomProduit, int qteVendue) {
 		if(!(lesProduits == null) && hasProductNom(nomProduit)){
 			I_Produit produit = getProduitParNom(nomProduit);
-			return produit.enlever(qteVendue);	
+			return produit.enlever(qteVendue);
 		}
 		return false;
 	}
@@ -113,8 +113,9 @@ public class Catalogue implements I_Catalogue{
 	private Boolean hasProductNom(String nomProduit){
 		return getProduitParNom(nomProduit) != null;
 	}
-	
-	private I_Produit getProduitParNom(String nomProduit){
+
+	@Override
+	public I_Produit getProduitParNom(String nomProduit){
 		I_Produit outProduit = null;
 		
 		for(I_Produit p : lesProduits){
