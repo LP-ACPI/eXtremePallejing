@@ -1,7 +1,7 @@
 package Metier;
 
 import DAO.I_ProduitDAO;
-import Fabrique.FabriqueDAORelationnel;
+import Fabrique.*;
 
 public class Produit implements I_Produit {
 

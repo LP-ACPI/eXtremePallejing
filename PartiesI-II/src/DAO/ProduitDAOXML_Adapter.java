@@ -8,7 +8,6 @@ public class ProduitDAOXML_Adapter implements I_ProduitDAO {
 
 	private ProduitDAO_XML produitXMLDAO_orig;
 	
-	
 	public ProduitDAOXML_Adapter() {
 		super();
 		this.produitXMLDAO_orig = new ProduitDAO_XML();
@@ -31,7 +30,6 @@ public class ProduitDAOXML_Adapter implements I_ProduitDAO {
 
 	@Override
 	public I_Produit read(String nomProduit) {
-		// TODO Auto-generated method stub
 		return produitXMLDAO_orig.lire(nomProduit);
 	}
 

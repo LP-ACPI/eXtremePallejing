@@ -12,22 +12,48 @@ public class ConnexionDAORelationnel extends ConnexionDAO {
 	private static String mdp 	= "Neces#9A";
 	private static Connection connexion;
 		
-	public ConnexionDAORelationnel() throws ClassNotFoundException, SQLException{
-		Class.forName(driver);
-		setConnexion(DriverManager.getConnection(url,login,mdp));
+	public ConnexionDAORelationnel(){
+		super();
+		try {
+			Class.forName(driver);
+			setConnexion(DriverManager.getConnection(url,login,mdp));
+		} catch (SQLException |ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+
 	}
 	
-	public static Connection getConnexion() {
-		return connexion;
+	public ConnexionDAORelationnel(String driver,String url,String login,String mdp) {
+		try {
+			Class.forName(driver);
+			setConnexion(DriverManager.getConnection(url,login,mdp));
+		} catch (SQLException | ClassNotFoundException e) {
+			System.out.println("Connexion à la BD échouée");
+			e.printStackTrace();
+		}
 	}
 
-	public static void setConnexion(Connection connexion) {
+	public static ConnexionDAORelationnel getInstance(){
+		if(instance == null)
+			instance = new ConnexionDAORelationnel();
+		return (ConnexionDAORelationnel) instance;
+	}	
+	
+	public void setConnexion(Connection connexion) {
 		ConnexionDAORelationnel.connexion = connexion;
 	}
 	
-	public static void closeConnexion(){
+	@Override
+	public Connection getConnexion() {
+		return connexion;
+	}
+
+	@Override
+	public void closeConnexion() {
 		try {
 			connexion.close();
+			System.out.println("Déconnexion de la base de données");
 		} catch (SQLException e) {
 			System.out.println("Déconnexion échouée");
 			e.printStackTrace();

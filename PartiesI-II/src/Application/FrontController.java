@@ -52,7 +52,9 @@ public class FrontController {
 	}
 	
 	public static void quit(){
-		ConnexionDAO.closeConnexion();
+		try {
+			ConnexionDAO.getInstance().closeConnexion();
+		} catch (NullPointerException e) {}
 	}
 
 	public static void main(String[] args) {

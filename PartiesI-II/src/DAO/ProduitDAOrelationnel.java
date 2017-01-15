@@ -16,14 +16,9 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 	private static ResultSet resultSet;
 	private static Connection connexion;
 	
-	public ProduitDAOrelationnel() {
-		try {
-			ConnexionDAORelationnel.getInstance();
-			connexion = ConnexionDAORelationnel.getConnexion();
-		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println("connection non établie");
-			e.printStackTrace();
-		} 
+	public ProduitDAOrelationnel(Connection connexion) {
+		super();
+		ProduitDAOrelationnel.connexion = connexion;
 	}
 	
 	@Override
@@ -37,14 +32,11 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 			statement.setDouble(3, p.getPrixUnitaireHT());
 			
 			setResultSet(statement.executeQuery());
-
-			return getResultSet() != null;
 		} catch (SQLException e) {
 			System.out.println("erreur création produit");
 			e.printStackTrace();
-			return false;
 		}
-		
+		return getResultSet() != null;		
 	}
 	
 
@@ -60,13 +52,11 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 			
 			setResultSet(statement.executeQuery());
 
-			return getResultSet() != null;
 		} catch (SQLException e) {
 			System.out.println("erreur mise à jour produit");
 			e.printStackTrace();
-			return false;
 		}
-		
+		return getResultSet() != null;		
 	}
 	
 
@@ -79,14 +69,11 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 			statement.setString(1,p.getNom());
 			
 			setResultSet(statement.executeQuery());
-			return getResultSet() != null;
 		} catch (SQLException e) {
 			System.out.println("erreur suppression produit");
 			e.printStackTrace();
-			return false;
 		}
-
-			
+		return getResultSet() != null;
 	}
 	
 
@@ -94,7 +81,7 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 	public I_Produit read(String nomP){
 		String find = "SELECT * FROM Produits"
 			+ " WHERE nomProduit=?";
-		I_Produit out = null;
+		I_Produit produit = null;
 					
 		try {
 
@@ -107,15 +94,14 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 				String nom = getResultSet().getString("nomProduit");
 				int qte = getResultSet().getInt("quantiteProduit");
 				double px  = getResultSet().getDouble("prixProduit");
-				out = new Produit(nom,px,qte);
+				produit = new Produit(nom,px,qte);
 			}
-			return out;
 		} catch (SQLException e) {
 			System.out.println("erreur recherche produit");			
 			e.printStackTrace();
-			return null;
+			
 		}
-		
+		return produit;
 	}
 	
 	@Override
@@ -133,25 +119,11 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 				double px 	= getResultSet().getDouble("prixProduit");
 				produits.add(new Produit(nom,px,qte));
 			}
-			return produits;
 		} catch (SQLException e) {
 			System.out.println("erreur recherche des produits");
 			e.printStackTrace();
-			return null;
 		}
-		
-	}	
-	
-	private void setStatement(PreparedStatement statement) {
-		ProduitDAOrelationnel.statement = statement;
-	}
-
-	private ResultSet getResultSet() {
-		return resultSet;
-	}
-
-	private void setResultSet(ResultSet rs) {
-		ProduitDAOrelationnel.resultSet = rs;
+		return produits;
 	}
 
 	@Override
@@ -168,5 +140,16 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 		}
 	}
 	
+	private void setStatement(PreparedStatement statement) {
+		ProduitDAOrelationnel.statement = statement;
+	}
+
+	private ResultSet getResultSet() {
+		return resultSet;
+	}
+
+	private void setResultSet(ResultSet rs) {
+		ProduitDAOrelationnel.resultSet = rs;
+	}
 
 }

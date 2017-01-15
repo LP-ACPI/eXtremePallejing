@@ -2,7 +2,6 @@ package DAO;
 
 import java.util.List;
 
-import Metier.I_Catalogue;
 import Metier.I_Produit;
 
 public interface I_ProduitDAO {

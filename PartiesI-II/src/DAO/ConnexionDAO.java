@@ -1,16 +1,19 @@
 package DAO;
 
-import java.sql.SQLException;
+import java.sql.Connection;
 
 public abstract class ConnexionDAO {
 
-	private static ConnexionDAO instance;
+	protected static ConnexionDAO instance;
 	
-	public static ConnexionDAO getInstance() throws ClassNotFoundException, SQLException {
-		if(instance == null)
-			instance = new ConnexionDAORelationnel();
-		return instance;
+	public static ConnexionDAO getInstance() throws NullPointerException {
+		if(instance != null)
+			return instance;
+		else throw new NullPointerException();
+		
 	}	
+	public abstract Connection getConnexion();
 	
-	public static void closeConnexion(){}
+	public abstract void closeConnexion();
+
 }

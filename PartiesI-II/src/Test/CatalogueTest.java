@@ -10,6 +10,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import Application.FrontController;
 import Metier.Catalogue;
 import Metier.I_Catalogue;
 import Metier.I_Produit;
@@ -29,8 +30,7 @@ public class CatalogueTest {
 
     @AfterClass
 	public static void cleanUp(){
-//    	Pour du relationnel
-//		FrontController.quit();
+		FrontController.quit();
 	}
 	
 	
