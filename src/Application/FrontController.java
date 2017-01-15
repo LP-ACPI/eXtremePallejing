@@ -1,22 +1,19 @@
 package Application;
 
-import DAO.I_ProduitDAO;
-import Fabrique.FabriqueProduitPDAOrelationnel;
+import DAO.ConnexionDAO;
+import Metier.Catalogue;
 import Metier.I_Catalogue;
 import Presentation.FenetrePrincipale;
 
 public class FrontController {
 
 	private static FrontController instance;
-	
-	private static I_ProduitDAO PDAO;
 	private static XPControlStock controlStock;
 	private static XPControlProduits controlProduit;
 	private static XPControlAfficheStock affStock;
 	
 	public FrontController(){		
-		setPDAO(FabriqueProduitPDAOrelationnel.CreateProduitPDAO());
-		I_Catalogue catalogue = getPDAO().findAll();
+		I_Catalogue catalogue = new Catalogue();
 		setAffStock(new XPControlAfficheStock(catalogue));
 		setControlStock(new XPControlStock(catalogue));
 		setControlProduit(new XPControlProduits(catalogue));	
@@ -42,10 +39,6 @@ public class FrontController {
 		FrontController.affStock = affStock;
 	}
 	
-	public static void setPDAO(I_ProduitDAO pDAO) {
-		FrontController.PDAO = pDAO;
-	}
-
 	public static XPControlStock getControlStock() {
 		return controlStock;
 	}
@@ -57,15 +50,10 @@ public class FrontController {
 	public static XPControlAfficheStock getAffStock() {
 		return affStock;
 	}
-
-	public static I_ProduitDAO getPDAO() {
-		return PDAO;
-	}
-
-	public static void quit(){
-		getPDAO().deconnect();
-	}
 	
+	public static void quit(){
+		ConnexionDAO.closeConnexion();
+	}
 
 	public static void main(String[] args) {
 		FrontController.getInstance();

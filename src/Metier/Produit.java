@@ -1,13 +1,15 @@
 package Metier;
 
+import DAO.I_ProduitDAO;
+import Fabrique.FabriqueAbstraiteDAO;
 
 public class Produit implements I_Produit {
 
+	private static I_ProduitDAO ProduitDAO = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
 	int quantiteStock;
 	String nom;
 	double prixUnitaireHT;
 	static double tauxTVA = 0.2;
-	
 	
 	public Produit(String nom, double prixUnitaireHT, int quantiteStock) {
 		super();
@@ -21,7 +23,7 @@ public class Produit implements I_Produit {
 	public boolean ajouter(int qteAchetee) {
 		if(qteAchetee > 0){
 			quantiteStock += qteAchetee;
-			return true;
+			return ProduitDAO.update(this);
 		}
 		return false;
 	}
@@ -31,7 +33,7 @@ public class Produit implements I_Produit {
 		int nouvQte = quantiteStock-qteVendue;
 		if(nouvQte >=0 && qteVendue > 0){
 			quantiteStock = nouvQte;
-			return true;
+			return ProduitDAO.update(this);
 		}
 		return false;
 	}
@@ -62,7 +64,6 @@ public class Produit implements I_Produit {
 		return pxTotal;
 	}
 	
-
 	@Override
 	public String toString() {
 		return nom +" - "
@@ -70,5 +71,5 @@ public class Produit implements I_Produit {
 				+ "prix TTC : "	+ String.format("%.2f",getPrixUnitaireTTC()) +" € - "
 				+ "quantité en stock : " + quantiteStock;
 	}
-	
+
 }

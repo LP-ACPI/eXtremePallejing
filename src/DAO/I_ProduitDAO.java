@@ -1,5 +1,7 @@
 package DAO;
 
+import java.util.List;
+
 import Metier.I_Catalogue;
 import Metier.I_Produit;
 
@@ -9,12 +11,12 @@ public interface I_ProduitDAO {
 
 	public abstract boolean update(I_Produit p);
 
-	public abstract boolean delete(String nomProduit);
+	public abstract boolean delete(I_Produit p);
 
-	public abstract I_Produit find(String nomProduit);
+	public abstract I_Produit read(String nomProduit);
 
-	public abstract I_Catalogue findAll();
-	
-	public abstract void deconnect();
+	public abstract List<I_Produit> readAll();
+
+	public abstract boolean deleteAll(I_Catalogue c);
 
 }

@@ -8,7 +8,6 @@ import Application.FrontController;
 import Application.XPControlAfficheStock;
 
 
-
 public class FenetrePrincipale extends JFrame implements ActionListener,
 		WindowListener {
 

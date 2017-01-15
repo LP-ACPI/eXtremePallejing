@@ -19,17 +19,11 @@ public class XPControlStock {
 	}
 	
 	public static Boolean XPApprovisionnerStock(String nomProduit, int quantite){
-		if(stock.acheterStock(nomProduit, quantite))
-			return FrontController.getPDAO()
-					.update(stock.getProduitParNom(nomProduit));
-		return false;
+		return stock.acheterStock(nomProduit, quantite);
 	}
 	
 	public static Boolean XPLiquiderStock(String nomProduit, int quantite){
-		if(stock.vendreStock(nomProduit, quantite))
-			return FrontController.getPDAO()
-					.update(stock.getProduitParNom(nomProduit));
-		return false;
+		return stock.vendreStock(nomProduit, quantite);
 	}
 	
 	public static String[] listeNomsProduits(){

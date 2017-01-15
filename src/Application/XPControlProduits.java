@@ -12,21 +12,16 @@ public class XPControlProduits {
 	}
 
 	public static Boolean XPAjouterProduit(I_Produit p){
-		if(produits.addProduit(p))
-			return FrontController.getPDAO().create(p);
-		return false;
+		return produits.addProduit(p);
 	}
 	
 	public static Boolean XPEnleverProduit(String nomProduit){
-		if(produits.removeProduit(nomProduit))
-			return FrontController.getPDAO().delete(nomProduit);
-		return false;
+		return produits.removeProduit(nomProduit);
 	}
 	
 	public static String[] listeNomsProduits(){
 		return produits.getNomProduits();
 	}
-	
 
 	public static I_Catalogue getProduits() {
 		return produits;

@@ -1,13 +1,13 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Metier.I_Catalogue;
-import Metier.Catalogue;
 import Metier.I_Produit;
 import Metier.Produit;
 
@@ -17,10 +17,14 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 	private static ResultSet resultSet;
 	private static Connection connexion;
 	
-	public ProduitDAOrelationnel(String driver,String url,String login,String mdp) throws ClassNotFoundException, SQLException{
-		
-		Class.forName(driver);
-		connexion = DriverManager.getConnection(url,login,mdp);
+	public ProduitDAOrelationnel() {
+		try {
+			ConnexionDAORelationnel.getInstance();
+			connexion = ConnexionDAORelationnel.getConnexion();
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println("connection non établie");
+			e.printStackTrace();
+		} 
 	}
 	
 	@Override
@@ -34,12 +38,14 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 			statement.setDouble(3, p.getPrixUnitaireHT());
 			
 			setResultSet(statement.executeQuery());
-			
+
+			return getResultSet() != null;
 		} catch (SQLException e) {
+			System.out.println("erreur création produit");
 			e.printStackTrace();
+			return false;
 		}
 		
-		return getResultSet() != null;
 	}
 	
 
@@ -54,72 +60,69 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 			statement.setString(3, p.getNom());
 			
 			setResultSet(statement.executeQuery());
-			
+
+			return getResultSet() != null;
 		} catch (SQLException e) {
+			System.out.println("erreur mise à jour produit");
 			e.printStackTrace();
+			return false;
 		}
 		
-		return getResultSet() != null;
 	}
 	
 
 	@Override
-	public boolean delete(String nomProduit){
+	public boolean delete(I_Produit p){
 		String delete = "DELETE FROM Produits"
 			+ " WHERE nomProduit=?";
 		try {
 			setStatement(connexion.prepareStatement(delete));
-			statement.setString(1,nomProduit);
+			statement.setString(1,p.getNom());
 			
 			setResultSet(statement.executeQuery());
-			
+			return getResultSet() != null;
 		} catch (SQLException e) {
+			System.out.println("erreur suppression produit");
 			e.printStackTrace();
+			return false;
 		}
 
-		return getResultSet() != null;	
+			
 	}
 	
 
 	@Override
-	public I_Produit find(String nomP){
+	public I_Produit read(String nomP){
 		String find = "SELECT * FROM Produits"
 			+ " WHERE nomProduit=?";
 		I_Produit out = null;
-		
+					
 		try {
+
 			setStatement(connexion.prepareStatement(find));
 			statement.setString(1, nomP);
 			
 			setResultSet(statement.executeQuery());
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		String nom = null;
-		int qte = 0;
-		double px = 0;
-		
-		try {
 			while(getResultSet().next()){
-				nom = getResultSet().getString("nomProduit");
-				qte = getResultSet().getInt("quantiteProduit");
-				px  = getResultSet().getDouble("prixProduit");
+				String nom = getResultSet().getString("nomProduit");
+				int qte = getResultSet().getInt("quantiteProduit");
+				double px  = getResultSet().getDouble("prixProduit");
 				out = new Produit(nom,px,qte);
 			}
+			return out;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("erreur recherche produit");			
 			e.printStackTrace();
+			return null;
 		}
 		
-		return out;
 	}
 	
 	@Override
-	public I_Catalogue findAll(){
+	public List<I_Produit> readAll(){
 		String all = "SELECT * FROM PRODUITS";
-		I_Catalogue catal = new Catalogue();
+		List<I_Produit> produits= new ArrayList<I_Produit>();
 		
 		try {
 			setStatement(connexion.prepareStatement(all));
@@ -129,14 +132,15 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 				String nom	= getResultSet().getString("nomProduit");
 				int qte 	= getResultSet().getInt("quantiteProduit");
 				double px 	= getResultSet().getDouble("prixProduit");
-				catal.addProduit(nom, px, qte);
+				produits.add(new Produit(nom,px,qte));
 			}
+			return produits;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("erreur recherche des produits");
 			e.printStackTrace();
+			return null;
 		}
 		
-		return catal;
 	}	
 	
 	private void setStatement(PreparedStatement statement) {
@@ -152,16 +156,18 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 	}
 
 	@Override
-	public void deconnect() {
+	public boolean deleteAll(I_Catalogue c) {
+		String delAll = "DELETE FROM Produits";
 		try {
-			getResultSet().close();
-			statement.close();
-			connexion.close();
+			setStatement(connexion.prepareStatement(delAll));			
+			setResultSet(statement.executeQuery());
+			return getResultSet() != null;
 		} catch (SQLException e) {
+			System.out.println("erreur suppression de tous les produits");
 			e.printStackTrace();
+			return false;
 		}
-		
 	}
-		
+	
 
 }

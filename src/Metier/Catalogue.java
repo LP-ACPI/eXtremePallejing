@@ -1,30 +1,36 @@
 package Metier;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import DAO.I_ProduitDAO;
+import Fabrique.FabriqueAbstraiteDAO;
+
 
 public class Catalogue implements I_Catalogue{
 
 	private List<I_Produit> lesProduits;
+	private static I_ProduitDAO produitDAO = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
 	
 	public Catalogue() {
 		super();
-		this.lesProduits = new ArrayList<I_Produit>();
+		this.lesProduits = produitDAO.readAll();
 	}
 
 	@Override
 	public boolean addProduit(I_Produit produit) {
 		if(accepterProduit(produit))
-			return lesProduits.add(produit);
+			return lesProduits.add(produit) 
+					&& produitDAO.create(produit);
 		return false;
 	}
 
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {		
-		Produit p = new Produit(nom, prix, qte);
-		if(accepterProduit(p))
-			return lesProduits.add(p);				 
+		I_Produit produit = new Produit(nom, prix, qte);
+		if(accepterProduit(produit))
+			return lesProduits.add(produit)
+					&& produitDAO.create(produit);			 
 		return false;
 	}
 
@@ -37,24 +43,28 @@ public class Catalogue implements I_Catalogue{
 		
 		for(I_Produit p: listP){
 			if(accepterProduit(p)) {
-				lesProduits.add(p);
-				out++;
+				out += lesProduits.add(p)
+						&& produitDAO.create(p) 
+							? 1 : 0;
 			}
 		}
 		return out;
 	}
 
 	@Override
-	public boolean removeProduit(String nomProduit) {		
-		if(!(lesProduits == null) && hasProductNom(nomProduit))
-			return lesProduits.remove(getProduitParNom(nomProduit));
+	public boolean removeProduit(String nomProduit) {
+		I_Produit produit = getProduitParNom(nomProduit);
+		if(!(lesProduits == null) && produit != null){			
+			return lesProduits.remove(produit) 
+					&& produitDAO.delete(produit);
+		}
 		return false;
 	}
 
 	@Override
 	public boolean acheterStock(String nomProduit, int qteAchetee) {
-		if(!(lesProduits == null) && hasProductNom(nomProduit)){
-			I_Produit produit = getProduitParNom(nomProduit);
+		I_Produit produit = getProduitParNom(nomProduit);
+		if(!(lesProduits == null) && produit != null){
 			return produit.ajouter(qteAchetee);
 		}
 		return false;
@@ -62,8 +72,8 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public boolean vendreStock(String nomProduit, int qteVendue) {
-		if(!(lesProduits == null) && hasProductNom(nomProduit)){
-			I_Produit produit = getProduitParNom(nomProduit);
+		I_Produit produit = getProduitParNom(nomProduit);
+		if(!(lesProduits == null) && produit != null){
 			return produit.enlever(qteVendue);
 		}
 		return false;
@@ -97,25 +107,16 @@ public class Catalogue implements I_Catalogue{
 		if(ok){
 			ok &= produit.getPrixUnitaireHT()>0;
 			ok &= produit.getQuantite()>=0;
-			ok &= !lesProduits.contains(produit);
 			ok &= !hasProductNom(produit.getNom().trim());
 		}
 		return ok;
 	}
-	
-//	private Boolean acceptAjoutPDAO(I_Produit produit){
-//		Boolean ok = FrontController.getPDAO() != null;
-//		if(ok)
-//			ok &= FrontController.getPDAO().find(produit.getNom()) == null;
-//		return ok;
-//	}
-	
+		
 	private Boolean hasProductNom(String nomProduit){
 		return getProduitParNom(nomProduit) != null;
 	}
 
-	@Override
-	public I_Produit getProduitParNom(String nomProduit){
+	private I_Produit getProduitParNom(String nomProduit){
 		I_Produit outProduit = null;
 		
 		for(I_Produit p : lesProduits){
@@ -142,7 +143,9 @@ public class Catalogue implements I_Catalogue{
 
 	@Override
 	public void clear() {
-		lesProduits.clear();
+		lesProduits.clear();		
+		produitDAO.deleteAll(this);
+
 	}
 
 }

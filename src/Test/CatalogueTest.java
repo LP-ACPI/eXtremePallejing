@@ -2,12 +2,15 @@
 
 import static org.junit.Assert.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import Application.FrontController;
 import Metier.Catalogue;
 import Metier.I_Catalogue;
 import Metier.I_Produit;
@@ -22,8 +25,15 @@ public class CatalogueTest {
 	public void setUp() {
 		cat = new Catalogue();
 //		Si votre Catalogue est un Singleton, il faut changer la ligne pr€c€dente puis vider le Catalogue avec la m€thode clear() comme indiqu€ € la ligne suivante
-//		cat.clear();
+		cat.clear();
 	}
+
+    @AfterClass
+	public static void cleanUp(){
+//    	Pour du relationnel
+//		FrontController.quit();
+	}
+	
 	
 	@Test
 	public void testConstructeurCatalogue() {
