@@ -9,8 +9,9 @@ import Fabrique.*;
 
 public class Catalogue implements I_Catalogue {
 
+	private static I_ProduitDAO produitDAO = FabriqueDAORelationnel.createProduitDAO();
+	
 	private List<I_Produit> lesProduits;
-	private static I_ProduitDAO produitDAO = FabriqueDAOXML.createProduitDAO();
 	
 	public Catalogue() {
 		super();

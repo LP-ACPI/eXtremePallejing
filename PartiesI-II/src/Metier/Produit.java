@@ -6,6 +6,7 @@ import Fabrique.FabriqueDAORelationnel;
 public class Produit implements I_Produit {
 
 	private static I_ProduitDAO ProduitDAO = FabriqueDAORelationnel.createProduitDAO();
+	
 	int quantiteStock;
 	String nom;
 	double prixUnitaireHT;
