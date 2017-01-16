@@ -17,6 +17,10 @@ public class XPControlAfficheStock {
 	public static I_Catalogue getCatalog() {
 		return catalog;
 	}
+	
+	public static String getNomCatalog() {
+		return catalog.getNom();
+	}
 
 	public static void setCatalog(I_Catalogue catalog) {
 		XPControlAfficheStock.catalog = catalog;

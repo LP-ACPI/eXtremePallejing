@@ -6,11 +6,14 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import Application.FrontController;
+import Fabrique.FabriqueAbstraiteDAO;
 import Metier.Catalogue;
 import Metier.I_Catalogue;
 import Metier.I_Produit;
@@ -20,18 +23,26 @@ import Metier.Produit;
 public class CatalogueTest {
 
 	I_Catalogue cat;
+	@BeforeClass
+	public static void preSetUp(){
+		}
 	
 	@Before
 	public void setUp() {
-		cat = new Catalogue();
+		cat = new Catalogue("cataTest");
+		FabriqueAbstraiteDAO.getInstance().createCatalogueDAO().create(cat);
+		
+	}
+	
+	@After
+	public void cleanUp(){
 //		Si votre Catalogue est un Singleton, il faut changer la ligne pr€c€dente puis vider le Catalogue avec la m€thode clear() comme indiqu€ € la ligne suivante
 		cat.clear();
 	}
 
     @AfterClass
-	public static void cleanUp(){
-//    	Pour du relationnel
-//		FrontController.quit();
+	public static void postCleanUp(){
+		FrontController.quit();
 	}
 	
 	

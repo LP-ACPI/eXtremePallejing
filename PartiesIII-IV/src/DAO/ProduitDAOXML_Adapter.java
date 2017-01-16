@@ -7,12 +7,11 @@ import Metier.I_Produit;
 
 public class ProduitDAOXML_Adapter implements I_ProduitDAO {
 
-	private ProduitDAO_XML produitXMLDAO_orig;
-	
+	private static ProduitDAO_XML produitXMLDAO_orig;
 	
 	public ProduitDAOXML_Adapter() {
 		super();
-		this.produitXMLDAO_orig = new ProduitDAO_XML();
+		produitXMLDAO_orig = new ProduitDAO_XML();
 	}
 
 	@Override
@@ -32,7 +31,6 @@ public class ProduitDAOXML_Adapter implements I_ProduitDAO {
 
 	@Override
 	public I_Produit read(String nomProduit) {
-		// TODO Auto-generated method stub
 		return produitXMLDAO_orig.lire(nomProduit);
 	}
 
@@ -41,14 +39,10 @@ public class ProduitDAOXML_Adapter implements I_ProduitDAO {
 		return produitXMLDAO_orig.lireTous();
 	}
 
+
 	@Override
-	public boolean deleteAll(I_Catalogue cat) {
-		boolean suppressionOk = true;
-		List<I_Produit> produits = readAll();
-		for(I_Produit p: produits){
-			suppressionOk &= delete(p);
-		}
-		return suppressionOk;
+	public void setCatalogue(I_Catalogue catalog) {
+		produitXMLDAO_orig.instaurerCatalogue(catalog);		
 	}
 
 }

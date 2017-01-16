@@ -31,8 +31,7 @@ public class CatalogueTest {
     @AfterClass
 	public static void cleanUp(){
 		FrontController.quit();
-	}
-	
+	}	
 	
 	@Test
 	public void testConstructeurCatalogue() {

@@ -1,26 +1,37 @@
 package Metier;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import DAO.I_CatalogueDAO;
 import DAO.I_ProduitDAO;
 import Fabrique.FabriqueAbstraiteDAO;
 
 
-public class Catalogue implements I_Catalogue{
-
+public class Catalogue implements I_Catalogue {
+	
+	private static I_ProduitDAO produitDAO 	   = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
+	private static I_CatalogueDAO catalogueDAO = FabriqueAbstraiteDAO.getInstance().createCatalogueDAO();
+	
 	private List<I_Produit> lesProduits;
-	private static I_ProduitDAO produitDAO = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
+	private String nomCatalogue;
 	
 	public Catalogue() {
 		super();
-		this.lesProduits = produitDAO.readAll();
+		this.lesProduits = new ArrayList<I_Produit>();
+	}
+		
+	public Catalogue(String nomCatalogue) {
+		this();
+		this.nomCatalogue = nomCatalogue;
+		produitDAO.setCatalogue(this);
 	}
 
 	@Override
 	public boolean addProduit(I_Produit produit) {
 		if(accepterProduit(produit))
-			return lesProduits.add(produit) 
+			return lesProduits.add(produit)
 					&& produitDAO.create(produit);
 		return false;
 	}
@@ -43,9 +54,7 @@ public class Catalogue implements I_Catalogue{
 		
 		for(I_Produit p: listP){
 			if(accepterProduit(p)) {
-				out += lesProduits.add(p)
-						&& produitDAO.create(p) 
-							? 1 : 0;
+				out += lesProduits.add(p) ? 1 : 0;
 			}
 		}
 		return out;
@@ -86,10 +95,8 @@ public class Catalogue implements I_Catalogue{
 		
 		for(I_Produit p: lesProduits){
 			outNomsProduits[i++] = p.getNom();
-		}
-		
+		}		
 		Arrays.sort(outNomsProduits);
-
 		return outNomsProduits;
 	}
 
@@ -144,8 +151,15 @@ public class Catalogue implements I_Catalogue{
 	@Override
 	public void clear() {
 		lesProduits.clear();		
-		produitDAO.deleteAll(this);
+		catalogueDAO.delete(this);
+	}
 
+	public String getNom() {
+		return nomCatalogue;
+	}
+
+	public void setNomCatalogue(String nomCatalogue) {
+		this.nomCatalogue = nomCatalogue;
 	}
 
 }

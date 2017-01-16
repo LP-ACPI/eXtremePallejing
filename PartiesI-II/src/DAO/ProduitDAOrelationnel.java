@@ -10,15 +10,15 @@ import java.util.List;
 import Metier.I_Produit;
 import Metier.Produit;
 
-public class  ProduitDAOrelationnel implements I_ProduitDAO{
+public class  ProduitDAORelationnel implements I_ProduitDAO{
 	
 	private static PreparedStatement statement;
 	private static ResultSet resultSet;
 	private static Connection connexion;
 	
-	public ProduitDAOrelationnel(Connection connexion) {
+	public ProduitDAORelationnel(Connection connexion) {
 		super();
-		ProduitDAOrelationnel.connexion = connexion;
+		ProduitDAORelationnel.connexion = connexion;
 	}
 	
 	@Override
@@ -141,7 +141,7 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 	}
 	
 	private void setStatement(PreparedStatement statement) {
-		ProduitDAOrelationnel.statement = statement;
+		ProduitDAORelationnel.statement = statement;
 	}
 
 	private ResultSet getResultSet() {
@@ -149,7 +149,7 @@ public class  ProduitDAOrelationnel implements I_ProduitDAO{
 	}
 
 	private void setResultSet(ResultSet rs) {
-		ProduitDAOrelationnel.resultSet = rs;
+		ProduitDAORelationnel.resultSet = rs;
 	}
 
 }

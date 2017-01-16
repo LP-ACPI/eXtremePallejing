@@ -2,12 +2,12 @@ package Fabrique;
 
 import DAO.ConnexionDAORelationnel;
 import DAO.I_ProduitDAO;
-import DAO.ProduitDAOrelationnel;
+import DAO.ProduitDAORelationnel;
 
 public class FabriqueDAORelationnel{
 
 	public static I_ProduitDAO createProduitDAO() {
-		return new ProduitDAOrelationnel(ConnexionDAORelationnel.getInstance().getConnexion());
+		return new ProduitDAORelationnel(ConnexionDAORelationnel.getInstance().getConnexion());
 	}
 
 }

@@ -8,10 +8,9 @@ import Application.FrontController;
 import Application.XPControlAfficheStock;
 
 
+@SuppressWarnings("serial")
 public class FenetrePrincipale extends JFrame implements ActionListener,
 		WindowListener {
-
-	private static final long serialVersionUID = 1L;
 
 	private JButton btAfficher;
 	private JButton btNouveauProduit;

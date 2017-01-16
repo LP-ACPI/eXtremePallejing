@@ -16,7 +16,7 @@ public interface I_ProduitDAO {
 	public abstract I_Produit read(String nomProduit);
 
 	public abstract List<I_Produit> readAll();
-
-	public abstract boolean deleteAll(I_Catalogue c);
+	
+	public abstract void setCatalogue(I_Catalogue catalog);
 
 }

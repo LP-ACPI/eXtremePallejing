@@ -8,12 +8,14 @@ import org.jdom.*;
 import org.jdom.input.*;
 import org.jdom.output.*;
 
+import Metier.I_Catalogue;
 import Metier.I_Produit;
 import Metier.Produit;
 
 public class ProduitDAO_XML {
-	private String uri = "Produits.xml";
+	private String   uri = "Catalogues.xml";
 	private Document doc;
+	private Element catalogueParent;
 
 	public ProduitDAO_XML() {
 		SAXBuilder sdoc = new SAXBuilder();
@@ -26,17 +28,18 @@ public class ProduitDAO_XML {
 
 	public boolean creer(I_Produit p) {
 		try {
-			Element root = doc.getRootElement();
+			Element catal = getCatalogueParent();
 			Element prod = new Element("produit");
 			prod.setAttribute("nom", p.getNom());
 			Element prix = new Element("prixHT");
 			prod.addContent(prix.setText(String.valueOf(p.getPrixUnitaireHT())));
 			Element qte = new Element("quantite");
 			prod.addContent(qte.setText(String.valueOf(p.getQuantite())));
-			root.addContent(prod);
+			catal.addContent(prod);
 			return sauvegarde();
 		} catch (Exception e) {
 			System.out.println("erreur creer produit");
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -45,6 +48,7 @@ public class ProduitDAO_XML {
 		try {
 			Element prod = chercheProduit(p.getNom());
 			if (prod != null) {
+				prod.getChild("prixHT").setText(String.valueOf(p.getPrixUnitaireHT()));
 				prod.getChild("quantite").setText(String.valueOf(p.getQuantite()));
 				return sauvegarde();
 			}
@@ -57,10 +61,9 @@ public class ProduitDAO_XML {
 
 	public boolean supprimer(I_Produit p) {
 		try {
-			Element root = doc.getRootElement();
 			Element prod = chercheProduit(p.getNom());
 			if (prod != null) {
-				root.removeContent(prod);
+				getCatalogueParent().removeContent(prod);
 				return sauvegarde();
 			} else
 				return false;
@@ -82,9 +85,7 @@ public class ProduitDAO_XML {
 
 		List<I_Produit> l = new ArrayList<I_Produit>();
 		try {
-			Element root = doc.getRootElement();
-			List<Element> lProd = root.getChildren("produit");
-
+			List<Element> lProd = getCatalogueParent().getChildren("produit");
 			for (Element prod : lProd) {
 				String nomP = prod.getAttributeValue("nom");
 				Double prix = Double.parseDouble(prod.getChild("prixHT").getText());
@@ -110,14 +111,29 @@ public class ProduitDAO_XML {
 	}
 
 	private Element chercheProduit(String nom) {
-		Element root = doc.getRootElement();
-		List<Element> lProd = root.getChildren("produit");
-		int i = 0;
-		while (i < lProd.size() && !lProd.get(i).getAttributeValue("nom").equals(nom))
-			i++;
-		if (i < lProd.size())
-			return lProd.get(i);
+		int iProd = 0;
+		List<Element> lProd = getCatalogueParent().getChildren("produit");
+		while (iProd < lProd.size() && 
+				!lProd.get(iProd).getAttributeValue("nom").equals(nom))
+			iProd++;
+		if (iProd < lProd.size())
+			return lProd.get(iProd);
 		else
 			return null;
+	}
+	
+	public void instaurerCatalogue(I_Catalogue catalog){
+		Element root = doc.getRootElement();
+		List<Element> lCatalogs = root.getChildren("catalogue");
+		int iCatal = 0;
+		while (iCatal < lCatalogs.size() && 
+			!lCatalogs.get(iCatal).getAttributeValue("nom").equals(catalog.getNom()))
+			iCatal++;
+		if (iCatal < lCatalogs.size())
+			catalogueParent =  lCatalogs.get(iCatal);
+	}
+	
+	public Element getCatalogueParent() {
+		return catalogueParent;
 	}
 }

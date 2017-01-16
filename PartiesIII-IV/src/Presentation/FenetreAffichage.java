@@ -3,17 +3,16 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import Application.XPControlAfficheStock;
+
+@SuppressWarnings("serial")
 public class FenetreAffichage extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JButton btOK;
 	
 	public FenetreAffichage(String texte) {
 
-		setTitle("Affichage");
+		setTitle(XPControlAfficheStock.getNomCatalog());
 		setBounds(500, 500, 450, 250);
 		JPanel panHaut = new JPanel();
 		JPanel panBas = new JPanel();

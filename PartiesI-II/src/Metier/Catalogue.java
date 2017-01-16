@@ -44,9 +44,7 @@ public class Catalogue implements I_Catalogue {
 		
 		for(I_Produit p: listP){
 			if(accepterProduit(p)) {
-				out += lesProduits.add(p)
-						&& produitDAO.create(p) 
-							? 1 : 0;
+				out += lesProduits.add(p) ? 1 : 0;
 			}
 		}
 		return out;

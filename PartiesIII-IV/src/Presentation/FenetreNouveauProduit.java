@@ -8,12 +8,9 @@ import Application.XPControlProduits;
 import Metier.I_Produit;
 import Metier.Produit;
 
+@SuppressWarnings("serial")
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8141806231992288500L;
 	private JTextField txtPrixHT;
 	private JTextField txtNom;
 	private JTextField txtQte;

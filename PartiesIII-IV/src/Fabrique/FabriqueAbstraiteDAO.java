@@ -1,5 +1,6 @@
 package Fabrique;
 
+import DAO.I_CatalogueDAO;
 import DAO.I_ProduitDAO;
 
 public abstract class FabriqueAbstraiteDAO {
@@ -17,8 +18,7 @@ public abstract class FabriqueAbstraiteDAO {
 
 	public abstract I_ProduitDAO createProduitDAO();
 
-//	@Override
-//	public abstract I_CatalogueDAO createCatalogueDAO();
+	public abstract I_CatalogueDAO createCatalogueDAO();
 
 
 }

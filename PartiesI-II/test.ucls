@@ -46,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="6" language="java" name="DAO.ProduitDAOrelationnel" project="eXtremePallejing" 
+  <class id="6" language="java" name="DAO.ProduitDAORelationnel" project="eXtremePallejing" 
     file="/eXtremePallejing/src/DAO/ProduitDAOrelationnel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="297" width="225" x="900" y="114"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

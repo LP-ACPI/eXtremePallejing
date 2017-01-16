@@ -4,38 +4,55 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnexionDAORelationnel extends ConnexionDAO{
+public class ConnexionDAORelationnel extends ConnexionDAO {
 	
 	private static String driver= "oracle.jdbc.driver.OracleDriver";
 	private static String url 	= "jdbc:oracle:thin:@162.38.222.149:1521:iut";
 	private static String login = "necesanym";
 	private static String mdp 	= "Neces#9A";
 	private static Connection connexion;
-	
-	private static ConnexionDAORelationnel instance;
-	
-	public ConnexionDAORelationnel() throws ClassNotFoundException, SQLException{
-		Class.forName(driver);
-		setConnexion(DriverManager.getConnection(url,login,mdp));
+		
+	public ConnexionDAORelationnel(){
+		super();
+		try {
+			Class.forName(driver);
+			setConnexion(DriverManager.getConnection(url,login,mdp));
+		} catch (SQLException |ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
-	public static ConnexionDAORelationnel getInstance() throws ClassNotFoundException, SQLException {
+	public ConnexionDAORelationnel(String driver,String url,String login,String mdp) {
+		try {
+			Class.forName(driver);
+			setConnexion(DriverManager.getConnection(url,login,mdp));
+		} catch (SQLException | ClassNotFoundException e) {
+			System.out.println("Connexion à la BD échouée");
+			e.printStackTrace();
+		}
+	}
+
+	public static ConnexionDAORelationnel getInstance(){
 		if(instance == null)
 			instance = new ConnexionDAORelationnel();
-		return instance;
+		return (ConnexionDAORelationnel) instance;
 	}	
-
-	public static Connection getConnexion() {
-		return connexion;
-	}
-
-	public static void setConnexion(Connection connexion) {
+	
+	public void setConnexion(Connection connexion) {
 		ConnexionDAORelationnel.connexion = connexion;
 	}
 	
-	public static void closeConnexion(){
+	@Override
+	public Connection getConnexion() {
+		return connexion;
+	}
+
+	@Override
+	public void closeConnexion() {
 		try {
 			connexion.close();
+			System.out.println("Déconnexion de la base de données");
 		} catch (SQLException e) {
 			System.out.println("Déconnexion échouée");
 			e.printStackTrace();
