@@ -166,12 +166,12 @@ public class FenetreAccueil extends JFrame
 		String[] detailsCatalogues = new String[nombreDeCatalogues];
 		String[] nomsCatalogues    = catalogues.getNomsCatalogues();
 		String[] nombresDeProduitParCatalogue = catalogues.getNombresProduitsCatalogues();
-		
 		for(int i = 0; i<nombreDeCatalogues; i++)
 			detailsCatalogues[i] = nomsCatalogues[i] + " : " + nombresDeProduitParCatalogue[i] + " produits";
-		
-		modifierDetailCatalogues(detailsCatalogues);
+
+		System.out.println(detailsCatalogues);
 		modifierNbCatalogues(nombreDeCatalogues);
+		modifierDetailCatalogues(detailsCatalogues);
 		modifierListesCatalogues(nomsCatalogues);
 	}
 }

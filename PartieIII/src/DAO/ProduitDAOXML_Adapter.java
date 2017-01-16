@@ -7,47 +7,46 @@ import Metier.I_Produit;
 
 public class ProduitDAOXML_Adapter implements I_ProduitDAO {
 
-	private static ProduitDAO_XML produitDAOXmlOriginel;
+	private static ProduitDAO_XML produitDAOXmlDOrigine;
 	
 	public ProduitDAOXML_Adapter() {
 		super();
-		produitDAOXmlOriginel = new ProduitDAO_XML();
+		produitDAOXmlDOrigine = new ProduitDAO_XML();
 	}
 
 	@Override
 	public boolean create(I_Produit p) {
-		return produitDAOXmlOriginel.creer(p);
+		return produitDAOXmlDOrigine.creer(p);
 	}
 
 	@Override
 	public boolean update(I_Produit p) {
-		return produitDAOXmlOriginel.maj(p);
+		return produitDAOXmlDOrigine.maj(p);
 	}
 
 	@Override
 	public boolean delete(I_Produit p) {
-		return produitDAOXmlOriginel.supprimer(p);
+		return produitDAOXmlDOrigine.supprimer(p);
 	}
 
 	@Override
 	public I_Produit read(String nomProduit) {
-		return produitDAOXmlOriginel.lire(nomProduit);
+		return produitDAOXmlDOrigine.lire(nomProduit);
 	}
 
 	@Override
 	public List<I_Produit> readAll() {
-		return produitDAOXmlOriginel.lireTous();
+		return produitDAOXmlDOrigine.lireTous();
 	}
-
 
 	@Override
 	public void setCatalogue(I_Catalogue catalog) {
-		produitDAOXmlOriginel.instaurerCatalogue(catalog);		
+		produitDAOXmlDOrigine.instaurerCatalogue(catalog);		
 	}
 
 	@Override
 	public int catalogsProductCount() {
-		return produitDAOXmlOriginel.compterLeNombreDeProduitsDuCatalogue();
+		return produitDAOXmlDOrigine.compterLeNombreDeProduitsDuCatalogue();
 	}
 
 }
