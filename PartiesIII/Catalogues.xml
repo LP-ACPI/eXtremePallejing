@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listecatalogues><catalogue nom="test"><produit nom="test"><prixHT>2.0</prixHT><quantite>11</quantite></produit><produit nom="test1"><prixHT>2.0</prixHT><quantite>1</quantite></produit></catalogue><catalogue nom="autre"><produit nom="test2"><prixHT>2.0</prixHT><quantite>2</quantite></produit><produit nom="test"><prixHT>2.0</prixHT><quantite>2</quantite></produit></catalogue><catalogue nom="tessss" /><catalogue nom="f" /></listecatalogues>
