@@ -11,7 +11,7 @@ public abstract class FabriqueAbstraiteDAO {
 	
 	public synchronized static FabriqueAbstraiteDAO getInstance(){
 		if(instance == null){
-			instance = new FabriqueDAORelationnel();
+			instance = new FabriqueDAOXML();
 		}
 		return instance;
 	}

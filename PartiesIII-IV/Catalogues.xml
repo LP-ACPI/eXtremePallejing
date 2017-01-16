@@ -1,11 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listecatalogues>
-	
-	
-	<catalogue nom="catalogue3">
-		<produit nom="Twix">
-			<prixHT>12.66</prixHT>
-			<quantite>1</quantite>
-		</produit>
-	</catalogue>
-</listecatalogues>
+<catalogue nom="test" /></listecatalogues>

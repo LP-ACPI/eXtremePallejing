@@ -4,13 +4,13 @@ import DAO.CatalogueDAORelationnel;
 import DAO.ConnexionDAORelationnel;
 import DAO.I_CatalogueDAO;
 import DAO.I_ProduitDAO;
-import DAO.ProduitDAORelationnel;
+import DAO.ProduitDAOrelationnel;
 
 public class FabriqueDAORelationnel extends FabriqueAbstraiteDAO{
 
 	@Override
 	public I_ProduitDAO createProduitDAO() {
-		return new ProduitDAORelationnel(ConnexionDAORelationnel.getInstance().getConnexion());
+		return new ProduitDAOrelationnel(ConnexionDAORelationnel.getInstance().getConnexion());
 	}
 
 	@Override

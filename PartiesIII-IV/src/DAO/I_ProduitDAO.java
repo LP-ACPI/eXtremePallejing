@@ -18,5 +18,7 @@ public interface I_ProduitDAO {
 	public abstract List<I_Produit> readAll();
 	
 	public abstract void setCatalogue(I_Catalogue catalog);
+	
+	public abstract int getNombreDeProduitsDuCatalogue();
 
 }

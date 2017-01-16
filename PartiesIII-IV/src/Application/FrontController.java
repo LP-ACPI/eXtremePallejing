@@ -28,7 +28,7 @@ public class FrontController {
 			I_Catalogue cTemp = listeCatalogs.get(i);
 			produitDAO.setCatalogue(cTemp);
 			nomsCatalogues[i]  = cTemp.getNom();
-			nombresProduits[i] = produitDAO.readAll().size();
+			nombresProduits[i] = produitDAO.getNombreDeProduitsDuCatalogue();
 		}
 		cataloguesObserves = new CataloguesObservables(nomsCatalogues,nombresProduits);
 		cataloguesObserves.attacher(new FenetreAccueil());
@@ -68,7 +68,6 @@ public class FrontController {
 		I_Catalogue catalogue = new Catalogue(nomCatalogue);
 		catalogue.clear();
 		cataloguesObserves.supprimerCatalogue(nomCatalogue);
-		
 	}
 
 	public static void selectionnerCatalogue(String nomCatalogue){

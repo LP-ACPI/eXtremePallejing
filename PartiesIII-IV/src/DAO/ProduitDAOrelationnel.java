@@ -11,16 +11,16 @@ import Metier.I_Catalogue;
 import Metier.I_Produit;
 import Metier.Produit;
 
-public class  ProduitDAORelationnel implements I_ProduitDAO {
+public class ProduitDAOrelationnel implements I_ProduitDAO {
 	
 	private static PreparedStatement statement;
 	private static ResultSet resultSet;
 	private static Connection connexion;
 	private static String nomCatalogue;
 	
-	public ProduitDAORelationnel(Connection connexion) {
+	public ProduitDAOrelationnel(Connection connexion) {
 		super();
-		ProduitDAORelationnel.connexion = connexion;
+		ProduitDAOrelationnel.connexion = connexion;
 	}
 	
 	@Override
@@ -135,10 +135,28 @@ public class  ProduitDAORelationnel implements I_ProduitDAO {
 		return produits;
 	}
 	
+	@Override
+	public int getNombreDeProduitsDuCatalogue() {
+		String all = "SELECT count(*) as nb_produits FROM PRODUITS WHERE catalogue = ?";
+		int totalProduits = 0;
+		try {
+			setStatement(connexion.prepareStatement(all));
+			statement.setString(1, nomCatalogue);
+			setResultSet(statement.executeQuery());
+			
+			while(getResultSet().next()){
+				totalProduits	= getResultSet().getInt("nb_produits");
+			}
+		} catch (SQLException e) {
+			System.out.println("erreur recherche des produits");
+			e.printStackTrace();
+		}
+		return totalProduits;
+	}
 
 		
 	private void setStatement(PreparedStatement statement) {
-		ProduitDAORelationnel.statement = statement;
+		ProduitDAOrelationnel.statement = statement;
 	}
 
 	private ResultSet getResultSet() {
@@ -146,11 +164,13 @@ public class  ProduitDAORelationnel implements I_ProduitDAO {
 	}
 
 	private void setResultSet(ResultSet rs) {
-		ProduitDAORelationnel.resultSet = rs;
+		ProduitDAOrelationnel.resultSet = rs;
 	}
 
 	@Override
 	public void setCatalogue(I_Catalogue catalog) {
-		ProduitDAORelationnel.nomCatalogue = catalog.getNom();		
+		ProduitDAOrelationnel.nomCatalogue = catalog.getNom();		
 	}
+
+
 }

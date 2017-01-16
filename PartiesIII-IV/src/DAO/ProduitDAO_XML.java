@@ -110,9 +110,14 @@ public class ProduitDAO_XML {
 		}
 	}
 
+	public int compterLeNombreDeProduitsDuCatalogue(){
+		return getCatalogueParent().getContentSize();
+	}
+	
+
 	private Element chercheProduit(String nom) {
-		int iProd = 0;
 		List<Element> lProd = getCatalogueParent().getChildren("produit");
+		int iProd = 0;
 		while (iProd < lProd.size() && 
 				!lProd.get(iProd).getAttributeValue("nom").equals(nom))
 			iProd++;

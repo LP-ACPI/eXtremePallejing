@@ -153,8 +153,9 @@ public class FenetreAccueil extends JFrame
 	}
 	
 	private void modifierDetailCatalogues(String[] detailCatalogues) {
-		taDetailCatalogues.setText("");
-		if (detailCatalogues != null) {
+		taDetailCatalogues.setText("\n");
+		
+		if (detailCatalogues.length != 0) {
 			for (int i=0 ; i<detailCatalogues.length; i++)
 				taDetailCatalogues.append(detailCatalogues[i]+"\n");
 		}
@@ -166,12 +167,12 @@ public class FenetreAccueil extends JFrame
 		String[] detailsCatalogues = new String[nombreDeCatalogues];
 		String[] nomsCatalogues    = catalogues.getNomsCatalogues();
 		String[] nombresDeProduitParCatalogue = catalogues.getNombresProduitsCatalogues();
-		
 		for(int i = 0; i<nombreDeCatalogues; i++)
 			detailsCatalogues[i] = nomsCatalogues[i] + " : " + nombresDeProduitParCatalogue[i] + " produits";
-		
-		modifierDetailCatalogues(detailsCatalogues);
+
+		System.out.println(detailsCatalogues);
 		modifierNbCatalogues(nombreDeCatalogues);
+		modifierDetailCatalogues(detailsCatalogues);
 		modifierListesCatalogues(nomsCatalogues);
 	}
 }
