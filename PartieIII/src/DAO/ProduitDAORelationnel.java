@@ -148,7 +148,7 @@ public class ProduitDAORelationnel implements I_ProduitDAO {
 				totalProduits	= getResultSet().getInt("nb_produits");
 			}
 		} catch (SQLException e) {
-			System.out.println("erreur recherche des produits");
+			System.out.println("erreur compte des produits");
 			e.printStackTrace();
 		}
 		return totalProduits;

@@ -44,7 +44,7 @@ Ajouts et changements par rapport à la partie précédente:
 
 - refactoring
 - Exceptions (DAO)
-> dans `xxxDAO` (où `xxx` est une classe métier) remplacer les `try/catch` par `throw new DAOException(message);` sous condition + ajouter les try/catch là où il faut
+> dans `xxxDAO` (où `xxx` est une classe métier) placer `throw new DAOException(message);` dans le catch du `try/catch` déjà là + ajouter les try/catch là où il faut
 - tests adaptés
 - DAOs pour NoSQL (MongoDB,Cassandra ?) et objet Relationnel oracle
 - (optionnel) Partie IV : Gestion des catégories de produits

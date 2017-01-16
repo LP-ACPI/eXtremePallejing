@@ -9,8 +9,7 @@ import Application.FrontController;
 import Application.ObserverCatalogues;
 
 @SuppressWarnings("serial")
-public class FenetreAccueil extends JFrame 
-	implements ActionListener,ObserverCatalogues,WindowListener {
+public class FenetreAccueil extends JFrame implements ActionListener, ObserverCatalogues, WindowListener {
 
 	private JButton btAjouter, btSupprimer, btSelectionner;
 	private JTextField txtAjouter;
@@ -34,11 +33,11 @@ public class FenetreAccueil extends JFrame
 		panAjouter.setBackground(Color.gray);
 		panSupprimer.setBackground(Color.lightGray);
 		panSelectionner.setBackground(Color.gray);
-		
+
 		panNbCatalogues.add(new JLabel("Nous avons actuellement : "));
 		lbNbCatalogues = new JLabel();
 		panNbCatalogues.add(lbNbCatalogues);
-		
+
 		taDetailCatalogues = new TextArea();
 		taDetailCatalogues.setEditable(false);
 		new JScrollPane(taDetailCatalogues);
@@ -64,16 +63,16 @@ public class FenetreAccueil extends JFrame
 		panSelectionner.add(cmbSelectionner);
 		btSelectionner = new JButton("Selectionner");
 		panSelectionner.add(btSelectionner);
-		
-		panGestionCatalogues.setLayout (new BorderLayout());
+
+		panGestionCatalogues.setLayout(new BorderLayout());
 		panGestionCatalogues.add(panAjouter, "North");
 		panGestionCatalogues.add(panSupprimer);
 		panGestionCatalogues.add(panSelectionner, "South");
-		
+
 		panInfosCatalogues.setLayout(new BorderLayout());
 		panInfosCatalogues.add(panNbCatalogues, "North");
 		panInfosCatalogues.add(panDetailCatalogues, "South");
-				
+
 		contentPane.add(panInfosCatalogues, "North");
 		contentPane.add(panGestionCatalogues, "South");
 		pack();
@@ -81,7 +80,7 @@ public class FenetreAccueil extends JFrame
 		btAjouter.addActionListener(this);
 		btSupprimer.addActionListener(this);
 		btSelectionner.addActionListener(this);
-		
+
 		modifierListesCatalogues(FrontController.listerCatalogues());
 		modifierDetailCatalogues(FrontController.listerDetailsCatalogues());
 		modifierNbCatalogues(FrontController.nombreDeCatalogues());
@@ -91,30 +90,25 @@ public class FenetreAccueil extends JFrame
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btAjouter)
-		{
+		if (e.getSource() == btAjouter) {
 			String texteAjout = txtAjouter.getText();
-			if (!texteAjout.equals(""))
-			{
-				System.out.println("ajouter le catalogue "+texteAjout);
+			if (!texteAjout.equals("")) {
+				System.out.println("ajouter le catalogue " + texteAjout);
 				FrontController.ajouterCatalogue(texteAjout);
 				txtAjouter.setText(null);
 			}
 		}
-		if (e.getSource() == btSupprimer)
-		{
-			String texteSupprime = (String)cmbSupprimer.getSelectedItem();
-			if (texteSupprime != null){
-				System.out.println("supprime catalogue "+texteSupprime);
-				FrontController.supprimerCatalogue(texteSupprime);				
+		if (e.getSource() == btSupprimer) {
+			String texteSupprime = (String) cmbSupprimer.getSelectedItem();
+			if (texteSupprime != null) {
+				System.out.println("supprime catalogue " + texteSupprime);
+				FrontController.supprimerCatalogue(texteSupprime);
 			}
 		}
-		if (e.getSource() == btSelectionner)
-		{
-			String texteSelection = (String)cmbSelectionner.getSelectedItem();
-			if (texteSelection != null) 
-			{
-				System.out.println("selection du catalogue "+texteSelection);
+		if (e.getSource() == btSelectionner) {
+			String texteSelection = (String) cmbSelectionner.getSelectedItem();
+			if (texteSelection != null) {
+				System.out.println("selection du catalogue " + texteSelection);
 				FrontController.selectionnerCatalogue(texteSelection);
 				this.dispose();
 				new FenetrePrincipale();
@@ -129,47 +123,57 @@ public class FenetreAccueil extends JFrame
 		System.exit(0);
 	}
 
-	public void windowActivated(WindowEvent arg0) {}
-	public void windowClosed(WindowEvent arg0) {}
-	public void windowDeactivated(WindowEvent arg0) {}
-	public void windowDeiconified(WindowEvent arg0) {}
-	public void windowIconified(WindowEvent arg0) {}
-	public void windowOpened(WindowEvent arg0) {}
+	public void windowActivated(WindowEvent arg0) {
+	}
+
+	public void windowClosed(WindowEvent arg0) {
+	}
+
+	public void windowDeactivated(WindowEvent arg0) {
+	}
+
+	public void windowDeiconified(WindowEvent arg0) {
+	}
+
+	public void windowIconified(WindowEvent arg0) {
+	}
+
+	public void windowOpened(WindowEvent arg0) {
+	}
 
 	private void modifierListesCatalogues(String[] nomsCatalogues) {
 		cmbSupprimer.removeAllItems();
 		cmbSelectionner.removeAllItems();
 		if (nomsCatalogues != null)
-			for (int i=0 ; i<nomsCatalogues.length; i++)
-			{
+			for (int i = 0; i < nomsCatalogues.length; i++) {
 				cmbSupprimer.addItem(nomsCatalogues[i]);
 				cmbSelectionner.addItem(nomsCatalogues[i]);
 			}
 	}
-	
-	private void modifierNbCatalogues(int nb)
-	{
+
+	private void modifierNbCatalogues(int nb) {
 		lbNbCatalogues.setText(nb + " catalogues");
 	}
-	
+
 	private void modifierDetailCatalogues(String[] detailCatalogues) {
-		taDetailCatalogues.setText("");
+		String detailsCataloguesOutput = ""; // règlement de quelques soucis d'affichage
 		if (detailCatalogues.length != 0) {
-			for (int i=0 ; i<detailCatalogues.length; i++)
-				taDetailCatalogues.append(detailCatalogues[i]+"\n");
-		} else taDetailCatalogues.setText(" ");
+			for (int i = 0; i < detailCatalogues.length; i++)
+				detailsCataloguesOutput += detailCatalogues[i] + "\n";
+		} else
+			detailsCataloguesOutput = " ";
+		taDetailCatalogues.setText(detailsCataloguesOutput);
 	}
-	
+
 	@Override
 	public void mettreAJour(CataloguesObservables catalogues) {
-		int nombreDeCatalogues     = catalogues.getNombreCatalogues();
+		int nombreDeCatalogues = catalogues.getNombreCatalogues();
 		String[] detailsCatalogues = new String[nombreDeCatalogues];
-		String[] nomsCatalogues    = catalogues.getNomsCatalogues();
+		String[] nomsCatalogues = catalogues.getNomsCatalogues();
 		String[] nombresDeProduitParCatalogue = catalogues.getNombresProduitsCatalogues();
-		for(int i = 0; i<nombreDeCatalogues; i++)
+		for (int i = 0; i < nombreDeCatalogues; i++)
 			detailsCatalogues[i] = nomsCatalogues[i] + " : " + nombresDeProduitParCatalogue[i] + " produits";
 
-		System.out.println(detailsCatalogues);
 		modifierNbCatalogues(nombreDeCatalogues);
 		modifierDetailCatalogues(detailsCatalogues);
 		modifierListesCatalogues(nomsCatalogues);
