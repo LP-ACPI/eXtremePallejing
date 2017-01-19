@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.13" icons="true">  
+  <object id="1" language="java" name="application.ControleurAccueil" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/application/ControleurAccueil.java" binary="false" label="frontController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="461" y="0"/>    
+    <execution id="2">      
+      <position height="189" width="108" x="5" y="230"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="84" width="108" x="5" y="100"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="21" width="108" x="5" y="142"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="application.observateurs.CatalogueInfosObservables" 
+    project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/application/observateurs/CatalogueInfosObservables.java" binary="false" 
+    label="cataloguesObserves" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="293"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="21" width="0" x="0" y="251"/>    
+    </execution>  
+  </object>  
+  <object id="15" language="java" name="dao.catalogue.I_CatalogueDAO" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/dao/catalogue/I_CatalogueDAO.java" binary="false" label="catalogDAO" 
+    type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="8">      
+      <position height="21" width="0" x="0" y="335"/>    
+    </execution>  
+  </object>  
+  <object id="16" language="java" name="metier.Catalogue" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/metier/Catalogue.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="0" x="0" y="377"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="presentation.FenetreAccueil" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/presentation/FenetreAccueil.java" binary="false" label="fenetreAccueil" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="277" y="0"/>    
+    <execution id="18">      
+      <position height="231" width="108" x="117" y="209"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="metier.I_Catalogue" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/metier/I_Catalogue.java" binary="false" label="i_Catalogue" type="interface" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="442" y="0"/>  
+  </object>  
+  <object id="21" language="java" name="application.ControleurAccueil" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/application/ControleurAccueil.java" binary="false" label="frontController1" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>  
+  </object>  
+  <message id="3" operation="getNomsCatalogues():java.lang.String[]" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="ajouterCatalogue(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="Catalogue(java.lang.String)" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="12" operation="getInstance():application.ControleurAccueil" asynchronous="false">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="19" operation="listerCatalogues():java.lang.String[]" asynchronous="false">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="2"/>  
+  </message>
+</sequence-diagram>
