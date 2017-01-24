@@ -5,15 +5,7 @@
 	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/classes111.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/jdom.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/cassandra-jdbc-2.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/slf4j-log4j12-1.5.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/apache-cassandra-clientutil-1.2.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/apache-cassandra-thrift-1.2.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/cassandra-all-1.2.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/guava-15.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/jackson-core-asl-1.9.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/jackson-mapper-asl-1.9.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/libthrift-0.7.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/mongo-java-driver-3.2.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Marek/Desktop/partage_VM/LP_ACPI/Documents/LP-ACPI/UML/eXtremePallejing/PartieIII/drivers/mysql-connector-java-5.1.5-bin.jar"/>

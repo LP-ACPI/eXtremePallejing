@@ -1,5 +1,6 @@
 package metier;
 
+import dao.DAOException;
 import dao.fabrique.FabriqueAbstraiteDAO;
 import dao.produit.I_ProduitDAO;
 
@@ -21,7 +22,7 @@ public class Produit implements I_Produit {
 
 
 	@Override
-	public boolean ajouter(int qteAchetee) {
+	public boolean ajouter(int qteAchetee) throws DAOException {
 		if(qteAchetee > 0){
 			quantiteStock += qteAchetee;
 			return produitDAO.update(this);
@@ -30,7 +31,7 @@ public class Produit implements I_Produit {
 	}
 
 	@Override
-	public boolean enlever(int qteVendue) {		
+	public boolean enlever(int qteVendue) throws DAOException {		
 		int nouvQte = quantiteStock-qteVendue;
 		if(nouvQte >=0 && qteVendue > 0){
 			quantiteStock = nouvQte;

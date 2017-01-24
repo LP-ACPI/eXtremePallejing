@@ -1,13 +1,15 @@
 package application.observateurs;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import metier.I_Catalogue;
 
 public class CatalogueInfosObservables{
 
-	private List<DetailCatalogue>    catalogues   = new ArrayList<DetailCatalogue>();
+private List<DetailCatalogue> catalogues   			  = new ArrayList<DetailCatalogue>();
 	private List<ObserverInfosCatalogues> observators = new ArrayList<ObserverInfosCatalogues>();
 	
 	public CatalogueInfosObservables(List<I_Catalogue> catalogues) {
@@ -40,18 +42,45 @@ public class CatalogueInfosObservables{
 		return catalogues.size();
 	}
 
-	public void ajouterCatalogue(String nomCatalogue){
-		catalogues.add(new DetailCatalogue(nomCatalogue,0));
-		avertir();
+	public boolean ajouterCatalogue(String nomCatalogue){
+		if(ajoutCataloguePossible(nomCatalogue)){
+			catalogues.add(new DetailCatalogue(nomCatalogue,0));
+			avertir();
+			return true;
+		}
+		return false;
 	}
 	
-	public void supprimerCatalogue(String nomCatalogue){
+	private boolean ajoutCataloguePossible(String nomCatalogue) {
+		boolean ajoutOk = true;
+		for(DetailCatalogue dc : catalogues)
+			if(dc.getNomCatalogue().equals(nomCatalogue))
+				ajoutOk = false;
+		avertir();
+		return ajoutOk;
+	}
+	
+	private void rangerInfosObservables(){
+		if (catalogues.size() > 0) {
+			  Collections.sort(catalogues, new Comparator<DetailCatalogue>() {
+			      @Override
+			      public int compare(final DetailCatalogue dc1, final DetailCatalogue dc2) {
+			          return dc1.getNomCatalogue().compareTo(dc2.getNomCatalogue());
+			      }
+			  });
+			}
+	}
+
+	public boolean supprimerCatalogue(String nomCatalogue){
+		boolean supprimOk = false;
 		for(DetailCatalogue dc : catalogues)
 			if(dc.getNomCatalogue().equals(nomCatalogue)){
 				catalogues.remove(dc);
+				supprimOk = true;
 				break;
 			}
 		avertir();
+		return supprimOk;
 	}
 	
 	public String[] getDetailsCatalogues(){
@@ -72,6 +101,7 @@ public class CatalogueInfosObservables{
 	}
 	
 	public void avertir(){
+		rangerInfosObservables();
 		for(ObserverInfosCatalogues o : observators)
 			o.mettreAJour(this);
 	}

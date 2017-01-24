@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import dao.fabrique.FabriqueAbstraiteDAO;
+import dao.DAOException;
 import dao.catalogue.I_CatalogueDAO;
 import dao.produit.I_ProduitDAO;
 
@@ -24,20 +25,21 @@ public class Catalogue implements I_Catalogue {
 		
 	public Catalogue(String nomCatalogue) {
 		this();
-		this.nomCatalogue = nomCatalogue;
+		this.nomCatalogue = nomCatalogue.replaceAll("[\\t]", " ").trim();
 		produitDAO.setCatalogue(this);
 	}
 
 	@Override
-	public boolean addProduit(I_Produit produit) {
-		if(produitPersistable(produit))
+	public boolean addProduit(I_Produit produit) throws DAOException {
+		if(produitPersistable(produit)){
 			 if(lesProduits.add(produit))
 				 return produitDAO.create(produit);
+		} else throw new DAOException("");
 		return false;
 	}
 
 	@Override
-	public boolean addProduit(String nom, double prix, int qte) {		
+	public boolean addProduit(String nom, double prix, int qte) throws DAOException {		
 		return addProduit(new Produit(nom, prix, qte));
 	}
 
@@ -55,7 +57,7 @@ public class Catalogue implements I_Catalogue {
 	}
 
 	@Override
-	public boolean removeProduit(String nomProduit) {
+	public boolean removeProduit(String nomProduit) throws DAOException {
 		I_Produit produit = getProduitParNom(nomProduit);
 		if(produitValide(produit))
 			if(lesProduits.remove(produit))
@@ -64,20 +66,18 @@ public class Catalogue implements I_Catalogue {
 	}
 
 	@Override
-	public boolean acheterStock(String nomProduit, int qteAchetee) {
+	public boolean acheterStock(String nomProduit, int qteAchetee) throws DAOException {
 		I_Produit produit = getProduitParNom(nomProduit);
 		if(produitValide(produit))
 			return produit.ajouter(qteAchetee);
-
 		return false;
 	}
 
 	@Override
-	public boolean vendreStock(String nomProduit, int qteVendue) {
+	public boolean vendreStock(String nomProduit, int qteVendue) throws DAOException {
 		I_Produit produit = getProduitParNom(nomProduit);
 		if(produitValide(produit))
 			return produit.enlever(qteVendue);
-		
 		return false;
 	}
 
@@ -86,9 +86,9 @@ public class Catalogue implements I_Catalogue {
 		String outNomsProduits[] = new String[lesProduits.size()];
 		int i = 0;
 		
-		for(I_Produit p: lesProduits){
+		for(I_Produit p: lesProduits)
 			outNomsProduits[i++] = p.getNom();
-		}		
+		
 		Arrays.sort(outNomsProduits);
 		return outNomsProduits;
 	}
@@ -96,9 +96,9 @@ public class Catalogue implements I_Catalogue {
 	@Override
 	public double getMontantTotalTTC() {
 		double outTotal = 0;
-		for(I_Produit p:lesProduits){
+		for(I_Produit p:lesProduits)
 			outTotal += p.getPrixStockTTC();
-		}
+		
 		return (double)Math.round(outTotal*100) / 100;
 	}
 	
@@ -136,21 +136,20 @@ public class Catalogue implements I_Catalogue {
 	public String toString() {
 		String outPut = "";
 		
-		for(I_Produit p:lesProduits){
+		for(I_Produit p:lesProduits)
 			outPut += p + "\n";
-		}
 		
 		outPut += "\nMontant total TTC du stock : "+ String.format("%.2f",getMontantTotalTTC() ) + " €";
 		
 		return outPut;
 	}
 	
-	public void persist(){
+	public void persist() throws DAOException{
 		catalogueDAO.create(this);
 	}
 	
 	@Override
-	public void clear() {
+	public void clear() throws DAOException {
 		lesProduits.clear();		
 		catalogueDAO.delete(this);
 	}

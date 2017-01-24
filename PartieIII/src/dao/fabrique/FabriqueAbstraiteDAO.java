@@ -10,9 +10,8 @@ public abstract class FabriqueAbstraiteDAO {
 	protected FabriqueAbstraiteDAO(){}
 	
 	public synchronized static FabriqueAbstraiteDAO getInstance(){
-		if(instance == null){
-			instance = new FabriqueDAOCassandra();
-		}
+		if(instance == null)
+			instance = new FabriqueDAOMongoDB();
 		return instance;
 	}
 	

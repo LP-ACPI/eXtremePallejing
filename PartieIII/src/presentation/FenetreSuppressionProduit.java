@@ -5,13 +5,14 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import application.ControleurProduits;
+import dao.DAOException;
 
+@SuppressWarnings("serial")
 public class FenetreSuppressionProduit extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private JButton btSupprimer;
 	private JComboBox<String> combo;
 		
@@ -37,19 +38,27 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btSupprimer){
-			if(ControleurProduits.XPEnleverProduit(combo.getSelectedItem().toString())){
-				JOptionPane.showMessageDialog(this,
-					    "Produit " + combo.getSelectedItem().toString()
-					    + " supprimé!",
-					    "Suppression",
-					    JOptionPane.INFORMATION_MESSAGE);
-				this.dispose();
-			} else {
-				JOptionPane.showMessageDialog(this,
-					    "Pas de produit à supprimer",
-					    "Suppression",
+			try {
+				if(ControleurProduits.XPEnleverProduit(combo.getSelectedItem().toString())){
+					JOptionPane.showMessageDialog(this,
+						    "Produit " + combo.getSelectedItem().toString()
+						    + " supprimé!",
+						    "Suppression",
+						    JOptionPane.INFORMATION_MESSAGE);
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(this,
+						    "Pas de produit à supprimer",
+						    "Suppression",
+						    JOptionPane.WARNING_MESSAGE);
+				}
+			} catch(DAOException | HeadlessException exception){
+		    	JOptionPane.showMessageDialog(this,
+						exception.getMessage(),
+					    "Erreur !",
 					    JOptionPane.WARNING_MESSAGE);
-			}
+				exception.printStackTrace();
+		    }
 		}
 	}
 

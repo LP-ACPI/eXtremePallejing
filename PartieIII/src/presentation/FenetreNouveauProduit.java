@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import application.ControleurProduits;
+import dao.DAOException;
 import metier.I_Produit;
 import metier.Produit;
 
@@ -43,8 +44,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 //		combo.setPreferredSize(new Dimension(100, 20));
 //		contentPane.add(labCategorie);
 //		contentPane.add(combo);
-
-		
+	
 		btValider = new JButton("Valider");
 		contentPane.add(btValider);
 
@@ -67,7 +67,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(this,
 						    "Produit " + nom
 						    + " créé!",
-						    "Suppression",
+						    "Création",
 						    JOptionPane.INFORMATION_MESSAGE);
 					this.dispose();
 				} else {
@@ -76,12 +76,18 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 						    "Produit non valide",
 						    JOptionPane.WARNING_MESSAGE);
 				}
-		    } catch (NumberFormatException i) {
+		    } catch (NumberFormatException exceptioni) {
 					JOptionPane.showMessageDialog(this,
 						    "Merci de remplir avec des valeurs valides",
 						    "Valeurs non valides",
 						    JOptionPane.WARNING_MESSAGE);
 				
+		    } catch(DAOException | HeadlessException exception){
+		    	JOptionPane.showMessageDialog(this,
+						exception.getMessage(),
+					    "Erreur !",
+					    JOptionPane.WARNING_MESSAGE);
+				exception.printStackTrace();
 		    }
 			
 		}

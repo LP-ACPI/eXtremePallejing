@@ -1,21 +1,24 @@
 CREATE KEYSPACE ks_catalogue WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 
-drop table if exists ks_catalogue.catalogue_produits;
-CREATE TABLE ks_catalogue.catalogue_produits (
-	nom_catalogue varchar,
-	id_produit varchar,
-	PRIMARY KEY (nom_catalogue)
-) WITH CLUSTERING ORDER BY (nom_catalogue DESC);
-
 drop table if exists ks_catalogue.produits_du_catalogue;
 CREATE TABLE ks_catalogue.produits_du_catalogue (
-	id_produit int
+	nom_catalogue varchar static,
 	nom_produit varchar,
-	nom_catalogue varchar,
 	prix_produit double,
 	quantite_produit int,
-	PRIMARY KEY (id_produit,nom_catalogue)
+	PRIMARY KEY (nom_catalogue,nom_produit)
 ) WITH CLUSTERING ORDER BY (nom_produit DESC);
+
+//drop table if exists ks_catalogue.produits_du_catalogue;
+//CREATE TABLE ks_catalogue.produits_du_catalogue (
+//	nom_catalogue varchar,
+//	id_produit uuid,
+//	nom_produit varchar,
+//	prix_produit double,
+//	quantite_produit int,
+//	PRIMARY KEY (nom_catalogue)
+//);
+
 
 INSERT INTO ks_catalogue.catalogue_produits(nom_catalogue) 
 VALUES ('test');

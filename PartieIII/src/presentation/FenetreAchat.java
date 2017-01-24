@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import application.ControleurStock;
+import dao.DAOException;
 
 public class FenetreAchat extends JFrame implements ActionListener {
 
@@ -42,20 +43,27 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == btAchat){
-			if(ControleurStock.XPApprovisionnerStock(
-					combo.getSelectedItem().toString(),
-					Integer.parseInt(txtQuantite.getText())
-				)) {
-				this.dispose();
-			} else {
+			String selectionProduit = combo.getSelectedItem().toString();
+			int qteAchat = Integer.parseInt(txtQuantite.getText());
+			
+			try {
+				if(ControleurStock.XPApprovisionnerStock(selectionProduit,qteAchat)) {
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(this,
+						    "Merci d'entrer une valeur valide :\n"
+						    + " un entier naturel",
+						    "Valeur non valide !",
+						    JOptionPane.WARNING_MESSAGE);
+					txtQuantite.setText("0");
+				}
+			} catch (HeadlessException | DAOException exception) {
 				JOptionPane.showMessageDialog(this,
-					    "Merci d'entrer une valeur valide :\n"
-					    + " un entier naturel",
-					    "Valeur non valide !",
+						exception.getMessage(),
+					    "Erreur !",
 					    JOptionPane.WARNING_MESSAGE);
-				txtQuantite.setText("0");
-			}
-			  
+				exception.printStackTrace();
+			}			  
 		}
 	}
 

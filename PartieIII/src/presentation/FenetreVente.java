@@ -5,13 +5,14 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import application.ControleurStock;
+import dao.DAOException;
 
+@SuppressWarnings("serial")
 public class FenetreVente extends JFrame implements ActionListener {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private JButton btVente;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
@@ -40,19 +41,32 @@ public class FenetreVente extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btVente){
-			if(ControleurStock.XPLiquiderStock(
-					combo.getSelectedItem().toString(),
-					Integer.parseInt(txtQuantite.getText())
-				)){
-				this.dispose();
-			} else {
+			try {
+				String selectionProduit = combo.getSelectedItem().toString();
+				int qteAchat = Integer.parseInt(txtQuantite.getText());
+				
+				if(ControleurStock.XPLiquiderStock(selectionProduit,qteAchat)){
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(this,
+							"Merci d'entrer une valeur positive"
+						    + "\net de vérifier que vous avez assez de ce produit en stock",
+						    "Valeur non valide",
+						    JOptionPane.WARNING_MESSAGE);
+					txtQuantite.setText("0");
+				}
+			} catch (NumberFormatException exceptioni) {
 				JOptionPane.showMessageDialog(this,
-						"Merci d'entrer une valeur positive"
-					    + "\net de vérifier que vous avez assez de ce produit en stock",
-					    "Valeur non valide",
+					    "Merci de remplir avec des valeurs valides",
+					    "Valeurs non valides",
+					    JOptionPane.WARNING_MESSAGE);			
+		    } catch(DAOException | HeadlessException exception){
+		    	JOptionPane.showMessageDialog(this,
+						exception.getMessage(),
+					    "Erreur !",
 					    JOptionPane.WARNING_MESSAGE);
-				txtQuantite.setText("0");
-			}
+				exception.printStackTrace();
+		    }
 		}
 	}
 

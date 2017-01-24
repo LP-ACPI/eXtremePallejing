@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DAOException;
 import metier.I_Catalogue;
 import metier.I_Produit;
 import metier.Produit;
@@ -24,7 +25,7 @@ public class ProduitDAORelationnel implements I_ProduitDAO {
 	}
 	
 	@Override
-	public boolean create(I_Produit p){
+	public boolean create(I_Produit p) throws DAOException{
 		String insert = "INSERT INTO Produits(nomProduit,quantiteProduit,prixProduit,catalogue)"
 				+ "Values(?,?,?,?)";
 		try {
@@ -37,15 +38,15 @@ public class ProduitDAORelationnel implements I_ProduitDAO {
 			
 			setResultSet(statement.executeQuery());
 		} catch (SQLException e) {
-			System.out.println("erreur création produit");
 			e.printStackTrace();
+			throw new DAOException("erreur création produit");
 		}
 		return getResultSet() != null;		
 	}
 	
 
 	@Override
-	public boolean update(I_Produit p){
+	public boolean update(I_Produit p) throws DAOException{
 		String update = "UPDATE Produits SET quantiteProduit=?,prixProduit=?"
 				+ " WHERE nomProduit=? AND catalogue=?";
 		try {
@@ -58,15 +59,15 @@ public class ProduitDAORelationnel implements I_ProduitDAO {
 			setResultSet(statement.executeQuery());
 
 		} catch (SQLException e) {
-			System.out.println("erreur mise à jour produit");
 			e.printStackTrace();
+			throw new DAOException("erreur mise à jour du produit");
 		}
 		return getResultSet() != null;		
 	}
 	
 
 	@Override
-	public boolean delete(I_Produit p){
+	public boolean delete(I_Produit p) throws DAOException{
 		String delete = "DELETE FROM Produits"
 			+ " WHERE nomProduit=? AND catalogue=?";
 		try {
@@ -76,15 +77,15 @@ public class ProduitDAORelationnel implements I_ProduitDAO {
 			
 			setResultSet(statement.executeQuery());
 		} catch (SQLException e) {
-			System.out.println("erreur suppression produit");
 			e.printStackTrace();
+			throw new DAOException("erreur suppression produit");
 		}
 		return getResultSet() != null;
 	}
 	
 
 	@Override
-	public I_Produit read(String nomP){
+	public I_Produit read(String nomP) throws DAOException{
 		String find = "SELECT * FROM Produits"
 			+ " WHERE nomProduit=? AND catalogue=?";
 		I_Produit produit = null;
@@ -104,14 +105,14 @@ public class ProduitDAORelationnel implements I_ProduitDAO {
 				produit = new Produit(nom,px,qte);
 			}
 		} catch (SQLException e) {
-			System.out.println("erreur recherche produit");			
-			e.printStackTrace();			
+			e.printStackTrace();
+			throw new DAOException("erreur recherche produit");		
 		}
 		return produit;
 	}
 	
 	@Override
-	public List<I_Produit> readAll(){
+	public List<I_Produit> readAll() throws DAOException{
 		String all = "SELECT * FROM PRODUITS WHERE catalogue = ?";
 		List<I_Produit> produits= new ArrayList<I_Produit>();
 		
@@ -127,14 +128,14 @@ public class ProduitDAORelationnel implements I_ProduitDAO {
 				produits.add(new Produit(nom,px,qte));
 			}
 		} catch (SQLException e) {
-			System.out.println("erreur recherche des produits");
 			e.printStackTrace();
+			throw new DAOException("erreur recherche des produits");
 		}
 		return produits;
 	}
 	
 	@Override
-	public int catalogsProductCount() {
+	public int catalogsProductCount() throws DAOException {
 		String count = "SELECT count(*) as nb_produits FROM PRODUITS WHERE catalogue = ?";
 		int totalProduits = 0;
 		try {
@@ -146,8 +147,8 @@ public class ProduitDAORelationnel implements I_ProduitDAO {
 				totalProduits	= getResultSet().getInt("nb_produits");
 			}
 		} catch (SQLException e) {
-			System.out.println("erreur compte des produits");
 			e.printStackTrace();
+			throw new DAOException("erreur compte des produits");
 		}
 		return totalProduits;
 	}

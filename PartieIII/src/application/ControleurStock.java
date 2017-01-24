@@ -1,5 +1,6 @@
 package application;
 
+import dao.DAOException;
 import metier.I_Catalogue;
 
 public class ControleurStock {
@@ -18,11 +19,11 @@ public class ControleurStock {
 		stock = catalogue;
 	}
 	
-	public static boolean XPApprovisionnerStock(String nomProduit, int quantite){
+	public static boolean XPApprovisionnerStock(String nomProduit, int quantite) throws DAOException{
 		return stock.acheterStock(nomProduit, quantite);
 	}
 	
-	public static boolean XPLiquiderStock(String nomProduit, int quantite){
+	public static boolean XPLiquiderStock(String nomProduit, int quantite) throws DAOException{
 		return stock.vendreStock(nomProduit, quantite);
 	}
 	

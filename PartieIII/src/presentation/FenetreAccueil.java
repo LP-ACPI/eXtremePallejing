@@ -7,6 +7,7 @@ import javax.swing.*;
 import application.ControleurAccueil;
 import application.observateurs.CatalogueInfosObservables;
 import application.observateurs.ObserverInfosCatalogues;
+import dao.DAOException;
 
 @SuppressWarnings("serial")
 public class FenetreAccueil extends JFrame 
@@ -93,9 +94,24 @@ public class FenetreAccueil extends JFrame
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btAjouter) {
 			String texteAjout = txtAjouter.getText();
-			if (!texteAjout.equals("")) {
-				System.out.println("ajouter le catalogue " + texteAjout);
-				ControleurAccueil.ajouterCatalogue(texteAjout);
+			if (!texteAjout.equals("")) {					
+				try {
+					if(ControleurAccueil.ajouterCatalogue(texteAjout)) {
+						System.out.println("ajouter le catalogue " + texteAjout);
+					} else {
+						System.out.println("ajout impossible");
+						JOptionPane.showMessageDialog(this,
+							    "Ce catalogue existe déjà !",
+							    "ajout Catalogue impossible !",
+							    JOptionPane.WARNING_MESSAGE);
+					}
+				} catch (HeadlessException | DAOException exception) {
+					JOptionPane.showMessageDialog(this,
+							exception.getMessage(),
+						    "Erreur !",
+						    JOptionPane.WARNING_MESSAGE);
+					exception.printStackTrace();
+				}
 				txtAjouter.setText(null);
 			}
 		}
@@ -103,14 +119,27 @@ public class FenetreAccueil extends JFrame
 			String texteSupprime = (String) cmbSupprimer.getSelectedItem();
 			if (texteSupprime != null) {
 				System.out.println("supprime catalogue " + texteSupprime);
-				ControleurAccueil.supprimerCatalogue(texteSupprime);
+				try {
+					ControleurAccueil.supprimerCatalogue(texteSupprime);
+				} catch (DAOException exception) {
+					JOptionPane.showMessageDialog(this,
+							exception.getMessage(),
+						    "Erreur !",
+						    JOptionPane.WARNING_MESSAGE);
+					exception.printStackTrace();
+				}
 			}
 		}
 		if (e.getSource() == btSelectionner) {
 			String texteSelection = (String) cmbSelectionner.getSelectedItem();
 			if (texteSelection != null) {
 				System.out.println("selection du catalogue " + texteSelection);
-				ControleurAccueil.selectionnerCatalogue(texteSelection);
+				try {
+					ControleurAccueil.selectionnerCatalogue(texteSelection);
+				} catch (DAOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				new FenetrePrincipale();
 				this.dispose();
 			}

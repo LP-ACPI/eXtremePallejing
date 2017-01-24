@@ -16,10 +16,13 @@ public class ControleurAccueil {
 
 	private static ControleurAccueil instance;
 	private static CatalogueInfosObservables cataloguesObserves;
-	private static I_CatalogueDAO catalogDAO = FabriqueAbstraiteDAO.getInstance().createCatalogueDAO();
-	private static I_ProduitDAO   produitDAO = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
+	private static I_CatalogueDAO catalogDAO;
+	private static I_ProduitDAO   produitDAO;
 	
-	public ControleurAccueil(){		
+	public ControleurAccueil() throws DAOException{
+		catalogDAO = FabriqueAbstraiteDAO.getInstance().createCatalogueDAO();
+		produitDAO = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
+		
 		List<I_Catalogue> listeCatalogs = catalogDAO.readAll();
 		int[] nombresProduits   = new int[listeCatalogs.size()];
 		String[] nomsCatalogues = new String[listeCatalogs.size()];
@@ -33,9 +36,9 @@ public class ControleurAccueil {
 		cataloguesObserves.attacher(new FenetreAccueil());
 	}
 	
-	public synchronized static ControleurAccueil getInstance(){
+	public synchronized static ControleurAccueil getInstance() throws DAOException{
 		if(instance == null){
-			instance = FabriqueControleurs.fabriquerControleurAccueil();
+			instance = new ControleurAccueil();
 		}
 		return instance;
 	}
@@ -52,21 +55,25 @@ public class ControleurAccueil {
 		return cataloguesObserves.getNombreCatalogues();
 	}
 	
-	public static void ajouterCatalogue(String nomCatalogue){
-		cataloguesObserves.ajouterCatalogue(nomCatalogue);
-		new Catalogue(nomCatalogue).persist();
+	public static boolean ajouterCatalogue(String nomCatalogue) throws DAOException{
+		if(cataloguesObserves.ajouterCatalogue(nomCatalogue)){
+			new Catalogue(nomCatalogue).persist();
+			return true;
+		} return false;
 	}
 	
-	public static void supprimerCatalogue(String nomCatalogue){
-		cataloguesObserves.supprimerCatalogue(nomCatalogue);
-		new Catalogue(nomCatalogue).clear();
+	public static boolean supprimerCatalogue(String nomCatalogue) throws DAOException{
+		if(cataloguesObserves.supprimerCatalogue(nomCatalogue)){
+			new Catalogue(nomCatalogue).clear();
+			return true;
+		} return false;
 	}
 
-	public static void selectionnerCatalogue(String nomCatalogue){
+	public static void selectionnerCatalogue(String nomCatalogue) throws DAOException{
 		I_Catalogue catalogue = catalogDAO.read(nomCatalogue);
-		FabriqueControleurs.fabriquerControleurAffStock(catalogue);
-		FabriqueControleurs.fabriquerControleurVariationStock(catalogue);
-		FabriqueControleurs.fabriquerControleurProduits(catalogue);
+		new ControleurAfficheStock(catalogue);
+		new ControleurProduits(catalogue);
+		new ControleurStock(catalogue);
 	}
 
 	
@@ -80,9 +87,14 @@ public class ControleurAccueil {
 	}
 	
 	public static void main(String[] args) {
-		FabriqueAbstraiteDAO.setInstance(new FabriqueDAOCassandra());
+		FabriqueAbstraiteDAO.setInstance(new FabriqueDAOMongoDB());
 		
-		ControleurAccueil.getInstance();
+		try {
+			ControleurAccueil.getInstance();
+		} catch (DAOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 }
