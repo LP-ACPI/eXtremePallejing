@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DAOException;
 import metier.Catalogue;
 import metier.I_Catalogue;
 import metier.I_Produit;
@@ -69,7 +70,7 @@ public class CatalogueDAORelationnel implements I_CatalogueDAO {
 	}
 
 	@Override
-	public I_Catalogue read(String nomCatalogue) {
+	public I_Catalogue read(String nomCatalogue) throws DAOException {
 		String ProduitsCatalogSQL = "SELECT * From Produits"
 				+ " WHERE catalogue=?";
 		I_Catalogue catalog = new Catalogue(nomCatalogue);
@@ -94,7 +95,7 @@ public class CatalogueDAORelationnel implements I_CatalogueDAO {
 	}
 
 	@Override
-	public List<I_Catalogue> readAll() {
+	public List<I_Catalogue> readAll() throws DAOException {
 		String catalogsSQL = "SELECT * From Catalogues";
 		List<I_Catalogue> listCatalogs = new ArrayList<I_Catalogue>();
 		try {
@@ -118,6 +119,25 @@ public class CatalogueDAORelationnel implements I_CatalogueDAO {
 
 	public static void setResultSet(ResultSet resultSet) {
 		CatalogueDAORelationnel.resultSet = resultSet;
+	}
+
+	@Override
+	public int getProductCount(I_Catalogue catalogue) throws DAOException {
+		String count = "SELECT count(*) as nb_produits FROM PRODUITS WHERE catalogue = ?";
+		int totalProduits = 0;
+		try {
+			statement = connexion.prepareStatement(count);
+			statement.setString(1, catalogue.getNom());
+			setResultSet(statement.executeQuery());
+			
+			while(getResultSet().next()){
+				totalProduits	= getResultSet().getInt("nb_produits");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("erreur compte des produits");
+		}
+		return totalProduits;
 	}
 
 }

@@ -136,9 +136,9 @@ public class FenetreAccueil extends JFrame
 				System.out.println("selection du catalogue " + texteSelection);
 				try {
 					ControleurAccueil.selectionnerCatalogue(texteSelection);
-				} catch (DAOException e1) {
+				} catch (DAOException exception) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					exception.printStackTrace();
 				}
 				new FenetrePrincipale();
 				this.dispose();

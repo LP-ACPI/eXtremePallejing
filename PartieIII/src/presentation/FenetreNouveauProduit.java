@@ -6,8 +6,6 @@ import javax.swing.*;
 
 import application.ControleurProduits;
 import dao.DAOException;
-import metier.I_Produit;
-import metier.Produit;
 
 @SuppressWarnings("serial")
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
@@ -58,12 +56,10 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 		if (e.getSource() == btValider){
 			String nom = txtNom.getText();
 			try {
-
 				double pxHT = Double.parseDouble(txtPrixHT.getText());
 				int qte = Integer.parseInt(txtQte.getText());
 
-				I_Produit p = new Produit(nom,pxHT,qte);
-				if(ControleurProduits.XPAjouterProduit(p)){
+				if(ControleurProduits.ajouterProduit(nom,pxHT,qte)){
 					JOptionPane.showMessageDialog(this,
 						    "Produit " + nom
 						    + " créé!",

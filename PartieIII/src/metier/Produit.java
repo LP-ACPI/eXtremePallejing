@@ -6,15 +6,16 @@ import dao.produit.I_ProduitDAO;
 
 public class Produit implements I_Produit {
 
-	private static I_ProduitDAO produitDAO = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
+	private static I_ProduitDAO produitDAO;
 	
 	int quantiteStock;
 	String nom;
 	double prixUnitaireHT;
 	static double tauxTVA = 0.2;
 	
-	public Produit(String nom, double prixUnitaireHT, int quantiteStock) {
+	public Produit(String nom, double prixUnitaireHT, int quantiteStock) throws DAOException {
 		super();
+		setDAO(FabriqueAbstraiteDAO.getInstance());
 		this.nom = nom.replaceAll("[\\t]", " ").trim();
 		this.prixUnitaireHT = prixUnitaireHT;
 		this.quantiteStock = quantiteStock;
@@ -74,9 +75,7 @@ public class Produit implements I_Produit {
 				+ "quantité en stock : " + quantiteStock;
 	}
 
-
-	@Override
-	public void setDAO(FabriqueAbstraiteDAO fabrique) {
+	private void setDAO(FabriqueAbstraiteDAO fabrique) throws DAOException {
 		produitDAO = fabrique.createProduitDAO();
 	}
 

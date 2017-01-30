@@ -2,12 +2,14 @@ package application;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import application.observateurs.CatalogueInfosObservables;
 import dao.ConnexionDAO;
 import dao.DAOException;
 import dao.catalogue.I_CatalogueDAO;
 import dao.fabrique.*;
-import dao.produit.I_ProduitDAO;
 import metier.Catalogue;
 import metier.I_Catalogue;
 import presentation.FenetreAccueil;
@@ -17,23 +19,21 @@ public class ControleurAccueil {
 	private static ControleurAccueil instance;
 	private static CatalogueInfosObservables cataloguesObserves;
 	private static I_CatalogueDAO catalogDAO;
-	private static I_ProduitDAO   produitDAO;
 	
 	public ControleurAccueil() throws DAOException{
 		catalogDAO = FabriqueAbstraiteDAO.getInstance().createCatalogueDAO();
-		produitDAO = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
 		
 		List<I_Catalogue> listeCatalogs = catalogDAO.readAll();
 		int[] nombresProduits   = new int[listeCatalogs.size()];
 		String[] nomsCatalogues = new String[listeCatalogs.size()];
 		for(int i=0;i<listeCatalogs.size();i++){
 			I_Catalogue caTemp = listeCatalogs.get(i);
-			produitDAO.setCatalogue(caTemp);
 			nomsCatalogues[i]  = caTemp.getNom();
-			nombresProduits[i] = produitDAO.catalogsProductCount();
+			nombresProduits[i] = catalogDAO.getProductCount(caTemp);
 		}
 		cataloguesObserves = new CatalogueInfosObservables(nomsCatalogues,nombresProduits);
 		cataloguesObserves.attacher(new FenetreAccueil());
+		cataloguesObserves.avertir();
 	}
 	
 	public synchronized static ControleurAccueil getInstance() throws DAOException{
@@ -86,14 +86,20 @@ public class ControleurAccueil {
 		}
 	}
 	
-	public static void main(String[] args) {
-		FabriqueAbstraiteDAO.setInstance(new FabriqueDAOMongoDB());
+	public static void main(String[] args) {		
 		
 		try {
+			FabriqueAbstraiteDAO.setInstance(new FabriqueDAOMongoDB());
 			ControleurAccueil.getInstance();
-		} catch (DAOException e) {
 			
-			e.printStackTrace();
+		} catch (DAOException exception) {
+			JFrame frame = new JFrame("Erreur connexion");
+			JOptionPane.showMessageDialog(frame,
+					exception.getMessage(),
+				    "Erreur !",
+				    JOptionPane.WARNING_MESSAGE);
+			exception.printStackTrace();
+			System.exit(0);
 		}
 	}
 

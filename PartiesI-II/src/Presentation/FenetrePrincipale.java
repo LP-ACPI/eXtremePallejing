@@ -4,14 +4,12 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import Application.FrontController;
-import Application.XPControlAfficheStock;
+import Application.ControleurFrontal;
 
 
+@SuppressWarnings("serial")
 public class FenetrePrincipale extends JFrame implements ActionListener,
 		WindowListener {
-
-	private static final long serialVersionUID = 1L;
 
 	private JButton btAfficher;
 	private JButton btNouveauProduit;
@@ -21,9 +19,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
+	private ControleurFrontal controlFrontal;
 	
 	
-	public FenetrePrincipale() {
+	public FenetrePrincipale(ControleurFrontal controlFrontal) {
 		
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
@@ -68,8 +67,14 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		
 		addWindowListener(this);
 		setVisible(true);
-		
-		
+		this.controlFrontal = controlFrontal;
+		try {
+		    throw new Exception();
+		}
+		catch (Exception e){
+		    e.printStackTrace();
+		}
+	
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -82,7 +87,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage(XPControlAfficheStock.AfficherCatalogue());
+			new FenetreAffichage(controlFrontal.listerContenuStock());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
@@ -98,14 +103,14 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 			new FenetreVente();
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
-			FrontController.quit();
+			controlFrontal.quit();
 			System.exit(0);
 		}	
 	}
 
 	public void windowClosing(WindowEvent arg0) {
 		System.out.println("Au revoir");
-		FrontController.quit();
+		controlFrontal.quit();
 		System.exit(0);
 	}
 
@@ -115,7 +120,5 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	public void windowDeiconified(WindowEvent arg0) {}
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
-
-
-
+	
 }

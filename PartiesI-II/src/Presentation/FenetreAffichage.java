@@ -3,12 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class FenetreAffichage extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@SuppressWarnings("serial")
+public class FenetreAffichage extends JFrame implements ActionListener {
 	private JButton btOK;
 	
 	public FenetreAffichage(String texte) {

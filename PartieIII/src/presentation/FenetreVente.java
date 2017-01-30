@@ -45,19 +45,19 @@ public class FenetreVente extends JFrame implements ActionListener {
 				String selectionProduit = combo.getSelectedItem().toString();
 				int qteAchat = Integer.parseInt(txtQuantite.getText());
 				
-				if(ControleurStock.XPLiquiderStock(selectionProduit,qteAchat)){
+				if(ControleurStock.liquiderStock(selectionProduit,qteAchat)){
 					this.dispose();
 				} else {
 					JOptionPane.showMessageDialog(this,
-							"Merci d'entrer une valeur positive"
-						    + "\net de vérifier que vous avez assez de ce produit en stock",
+							"Merci d'entrer une valeur positive\n"
+						    + "et de vérifier que vous avez assez de ce produit en stock",
 						    "Valeur non valide",
 						    JOptionPane.WARNING_MESSAGE);
 					txtQuantite.setText("0");
 				}
 			} catch (NumberFormatException exceptioni) {
 				JOptionPane.showMessageDialog(this,
-					    "Merci de remplir avec des valeurs valides",
+					    "Merci d'entrer des valeurs valeurs numériques",
 					    "Valeurs non valides",
 					    JOptionPane.WARNING_MESSAGE);			
 		    } catch(DAOException | HeadlessException exception){

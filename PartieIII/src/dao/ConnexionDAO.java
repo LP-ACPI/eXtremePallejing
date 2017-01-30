@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.Connection;
 
 public abstract class ConnexionDAO {
 
@@ -11,9 +10,6 @@ public abstract class ConnexionDAO {
 			return instance;
 		else throw new NullPointerException();
 	}
-	
-	public abstract Connection getConnexion();
-	public abstract void setConnexion(Connection connexion);
 	
 	public abstract void closeConnexion() throws DAOException;
 

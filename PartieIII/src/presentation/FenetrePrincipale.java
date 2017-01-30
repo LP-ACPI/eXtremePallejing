@@ -5,7 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import application.ControleurAccueil;
-import application.ControleurAfficheStock;
 
 
 @SuppressWarnings("serial")
@@ -81,7 +80,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage(ControleurAfficheStock.AfficherCatalogue());
+			new FenetreAffichage();
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();

@@ -1,10 +1,15 @@
 DROP TABLE Produits;
 
 CREATE TABLE Produits
-(codeProduit NUMBER DEFAULT 0 NOT NULL, 
-nomProduit VARCHAR(10) UNIQUE NOT NULL, 
-prixProduit FLOAT NOT NULL, 
-quantiteProduit NUMBER NOT NULL, 
+(codeProduit NUMBER DEFAULT 0, 
+nomProduit VARCHAR(10), 
+prixProduit FLOAT, 
+quantiteProduit NUMBER,
+CONSTRAINT nn_code_produit CHECK(codeProduit NOT NULL),
+CONSTRAINT nn_nom_produit CHECK(nomProduit NOT NULL),
+CONSTRAINT un_nom_produit UNIQUE(nomProduit),
+CONSTRAINT un_prix_produit UNIQUE(prixProduit),
+CONSTRAINT un_quantite_produit UNIQUE(quantiteProduit),
 CONSTRAINT pk_Produits PRIMARY KEY(codeProduit)) ;
 
 CREATE SEQUENCE auto_incr_seq

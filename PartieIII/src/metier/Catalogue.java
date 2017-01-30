@@ -12,18 +12,19 @@ import dao.produit.I_ProduitDAO;
 
 public class Catalogue implements I_Catalogue {
 	
-	private static I_ProduitDAO   produitDAO   = FabriqueAbstraiteDAO.getInstance().createProduitDAO();
-	private static I_CatalogueDAO catalogueDAO = FabriqueAbstraiteDAO.getInstance().createCatalogueDAO();
+	private static I_ProduitDAO   produitDAO;
+	private static I_CatalogueDAO catalogueDAO;
 	
 	private List<I_Produit> lesProduits;
 	private String nomCatalogue;
 	
-	public Catalogue() {
+	public Catalogue() throws DAOException {
 		super();
+		setDAO(FabriqueAbstraiteDAO.getInstance());
 		this.lesProduits = new ArrayList<I_Produit>();
 	}
 		
-	public Catalogue(String nomCatalogue) {
+	public Catalogue(String nomCatalogue) throws DAOException {
 		this();
 		this.nomCatalogue = nomCatalogue.replaceAll("[\\t]", " ").trim();
 		produitDAO.setCatalogue(this);
@@ -31,10 +32,9 @@ public class Catalogue implements I_Catalogue {
 
 	@Override
 	public boolean addProduit(I_Produit produit) throws DAOException {
-		if(produitPersistable(produit)){
+		if(produitPersistable(produit))
 			 if(lesProduits.add(produit))
 				 return produitDAO.create(produit);
-		} else throw new DAOException("");
 		return false;
 	}
 
@@ -143,14 +143,15 @@ public class Catalogue implements I_Catalogue {
 		
 		return outPut;
 	}
-	
+
+	@Override
 	public void persist() throws DAOException{
 		catalogueDAO.create(this);
 	}
 	
 	@Override
 	public void clear() throws DAOException {
-		lesProduits.clear();		
+		lesProduits.clear();
 		catalogueDAO.delete(this);
 	}
 
@@ -162,10 +163,10 @@ public class Catalogue implements I_Catalogue {
 		this.nomCatalogue = nomCatalogue;
 	}
 
-	@Override
-	public void setDAO(FabriqueAbstraiteDAO fabrique) {
-		produitDAO   = fabrique.createProduitDAO();
-	    catalogueDAO = fabrique.createCatalogueDAO();
+	private void setDAO(FabriqueAbstraiteDAO fabrique) throws DAOException {
+		produitDAO = fabrique.createProduitDAO();
+		catalogueDAO = fabrique.createCatalogueDAO();
 	}
+	
 
 }

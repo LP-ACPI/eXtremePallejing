@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import DAO.I_ProduitDAO;
-import Fabrique.*;
+import DAO.Fabrique.*;
+import Metier.I_Produit;
+import Metier.Produit;
 
 
 public class Catalogue implements I_Catalogue {
@@ -20,19 +22,15 @@ public class Catalogue implements I_Catalogue {
 
 	@Override
 	public boolean addProduit(I_Produit produit) {
-		if(accepterProduit(produit))
-			return lesProduits.add(produit) 
-					&& produitDAO.create(produit);
+		if(produitPersistable(produit))
+			 if(lesProduits.add(produit))
+				 return produitDAO.create(produit);
 		return false;
 	}
 
 	@Override
 	public boolean addProduit(String nom, double prix, int qte) {		
-		I_Produit produit = new Produit(nom, prix, qte);
-		if(accepterProduit(produit))
-			return lesProduits.add(produit)
-					&& produitDAO.create(produit);			 
-		return false;
+		return addProduit(new Produit(nom, prix, qte));
 	}
 
 	@Override
@@ -41,40 +39,35 @@ public class Catalogue implements I_Catalogue {
 		
 		if(listP == null)
 			return out;
-		
-		for(I_Produit p: listP){
-			if(accepterProduit(p)) {
+	
+		for(I_Produit p: listP)
+			if(produitPersistable(p)) 
 				out += lesProduits.add(p) ? 1 : 0;
-			}
-		}
 		return out;
 	}
 
 	@Override
 	public boolean removeProduit(String nomProduit) {
 		I_Produit produit = getProduitParNom(nomProduit);
-		if(!(lesProduits == null) && produit != null){			
-			return lesProduits.remove(produit) 
-					&& produitDAO.delete(produit);
-		}
+		if(produitValide(produit))
+			if(lesProduits.remove(produit))
+				return produitDAO.delete(produit);
 		return false;
 	}
 
 	@Override
 	public boolean acheterStock(String nomProduit, int qteAchetee) {
 		I_Produit produit = getProduitParNom(nomProduit);
-		if(!(lesProduits == null) && produit != null){
+		if(produitValide(produit))
 			return produit.ajouter(qteAchetee);
-		}
 		return false;
 	}
 
 	@Override
 	public boolean vendreStock(String nomProduit, int qteVendue) {
 		I_Produit produit = getProduitParNom(nomProduit);
-		if(!(lesProduits == null) && produit != null){
+		if(produitValide(produit))
 			return produit.enlever(qteVendue);
-		}
 		return false;
 	}
 
@@ -83,26 +76,24 @@ public class Catalogue implements I_Catalogue {
 		String outNomsProduits[] = new String[lesProduits.size()];
 		int i = 0;
 		
-		for(I_Produit p: lesProduits){
+		for(I_Produit p: lesProduits)
 			outNomsProduits[i++] = p.getNom();
-		}
 		
 		Arrays.sort(outNomsProduits);
-
 		return outNomsProduits;
 	}
 
 	@Override
 	public double getMontantTotalTTC() {
 		double outTotal = 0;
-		for(I_Produit p:lesProduits){
+		for(I_Produit p:lesProduits)
 			outTotal += p.getPrixStockTTC();
-		}
+		
 		return (double)Math.round(outTotal*100) / 100;
 	}
 	
-	private Boolean accepterProduit(I_Produit produit){
-		Boolean ok = produit != null;
+	private boolean produitPersistable(I_Produit produit){
+		boolean ok = produitValide(produit);
 		if(ok){
 			ok &= produit.getPrixUnitaireHT()>0;
 			ok &= produit.getQuantite()>=0;
@@ -110,8 +101,12 @@ public class Catalogue implements I_Catalogue {
 		}
 		return ok;
 	}
-		
-	private Boolean hasProductNom(String nomProduit){
+	
+	private boolean produitValide(I_Produit produit){
+		return lesProduits != null && produit != null;
+	}
+	
+	private boolean hasProductNom(String nomProduit){
 		return getProduitParNom(nomProduit) != null;
 	}
 
@@ -126,14 +121,13 @@ public class Catalogue implements I_Catalogue {
 		}
 		return outProduit;
 	}
-
+	
 	@Override
 	public String toString() {
 		String outPut = "";
 		
-		for(I_Produit p:lesProduits){
+		for(I_Produit p:lesProduits)
 			outPut += p + "\n";
-		}
 		
 		outPut += "\nMontant total TTC du stock : "+ String.format("%.2f",getMontantTotalTTC() ) + " €";
 		

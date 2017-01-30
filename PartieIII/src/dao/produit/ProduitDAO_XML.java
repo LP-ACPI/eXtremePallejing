@@ -8,6 +8,7 @@ import org.jdom.*;
 import org.jdom.input.*;
 import org.jdom.output.*;
 
+import dao.DAOException;
 import metier.I_Catalogue;
 import metier.I_Produit;
 import metier.Produit;
@@ -73,7 +74,7 @@ public class ProduitDAO_XML {
 		}
 	}
 
-	public I_Produit lire(String nom) {
+	public I_Produit lire(String nom) throws NumberFormatException, DAOException {
 		Element e = chercheProduit(nom);
 		if (e != null)
 			return new Produit(e.getAttributeValue("nom"), Double.parseDouble(e.getChildText("prixHT")), Integer.parseInt(e.getChildText("quantite")));

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.13" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="Application.XPControlAfficheStock" project="eXtremePallejing" 
+  <class id="1" language="java" name="Application.ControleurAffichageStock" project="eXtremePallejing" 
     file="/eXtremePallejing/src/Application/XPControlAfficheStock.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="445" y="121"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -10,7 +10,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="Application.FrontController" project="eXtremePallejing" 
+  <class id="2" language="java" name="Application.ControleurFrontal" project="eXtremePallejing" 
     file="/eXtremePallejing/src/Application/FrontController.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="41" y="282"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -19,7 +19,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="Application.XPControlProduits" project="eXtremePallejing" 
+  <class id="3" language="java" name="Application.ControleurProduits" project="eXtremePallejing" 
     file="/eXtremePallejing/src/Application/XPControlProduits.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="347" y="481"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -28,7 +28,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="Application.XPControlStock" project="eXtremePallejing" 
+  <class id="4" language="java" name="Application.ControleurStock" project="eXtremePallejing" 
     file="/eXtremePallejing/src/Application/XPControlStock.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="189" width="231" x="452" y="227"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.13" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <package id="1" language="java" name="metier" project="eXtremePallejing-partie3" 
-    file="/eXtremePallejing-partie3/src/metier" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="178" y="303"/>    
+  <package id="1" language="java" name="Application" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Application" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="332" y="155"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="2" language="java" name="Fabrique" project="eXtremePallejing-partie3" 
-    file="/eXtremePallejing-partie3/src/Fabrique" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="378" y="298"/>    
+  <package id="2" language="java" name="Metier" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Metier" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="467" y="155"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="3" language="java" name="presentation" project="eXtremePallejing-partie3" 
-    file="/eXtremePallejing-partie3/src/presentation" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="78" y="174"/>    
+  <package id="3" language="java" name="Presentation" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Presentation" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="178" y="155"/>    
     <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
-  <package id="4" language="java" name="application" project="eXtremePallejing-partie3" 
-    file="/eXtremePallejing-partie3/src/application" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="184" y="58"/>    
-    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  <package id="4" language="java" name="DAO" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/DAO" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="237" x="284" y="213"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <dependency id="5">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
+    <bendpoint x="255" y="176"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
   </dependency>  
   <dependency id="6">    
-    <end type="SOURCE" refId="3"/>    
+    <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
   <dependency id="7">    
@@ -34,11 +35,21 @@
     <end type="TARGET" refId="2"/>  
   </dependency>  
   <dependency id="8">    
-    <bendpoint x="80" y="309"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="9">    
+    <bendpoint x="558" y="160"/>    
+    <bendpoint x="558" y="244"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="10">    
+    <bendpoint x="256" y="145"/>    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
     <operations public="true" package="true" protected="true" private="true" static="true"/>  

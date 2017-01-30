@@ -3,17 +3,16 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import Application.XPControlStock;
+import Application.ControleurFrontal;
+import Application.ControleurStock;
 
+@SuppressWarnings("serial")
 public class FenetreAchat extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JButton btAchat;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
+	private ControleurFrontal controlFrontal;
 	
 
 	public FenetreAchat() {
@@ -25,7 +24,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 		txtQuantite = new JTextField(5);
 		txtQuantite.setText("0");
 
-		combo = new JComboBox<String>(XPControlStock.listeNomsProduits());
+		combo = new JComboBox<String>(ControleurStock.listeNomsProduits());
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
@@ -36,26 +35,31 @@ public class FenetreAchat extends JFrame implements ActionListener {
 		btAchat.addActionListener(this);
 
 		this.setVisible(true);
-		
+		controlFrontal = ControleurFrontal.getInstance();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == btAchat){
-			if(XPControlStock.XPApprovisionnerStock(
-					combo.getSelectedItem().toString(),
-					Integer.parseInt(txtQuantite.getText())
-				)) {
-				this.dispose();
-			} else {
-				JOptionPane.showMessageDialog(this,
-					    "Si vous avez ouvert cette fenêtre, c'est pour "
-					    + "acheter des produits",
-					    "Valeur non valide !",
-					    JOptionPane.WARNING_MESSAGE);
-				txtQuantite.setText("0");
-			}
-			  
+			try {
+				String nomProduit = combo.getSelectedItem().toString();
+				int quantite = Integer.parseInt(txtQuantite.getText());
+				
+				if(controlFrontal.approvisionnerStock(nomProduit,quantite)){
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(this,
+						    "Merci d'entrer une valeur entière positive.",
+						    "Valeur non valide !",
+						    JOptionPane.WARNING_MESSAGE);
+					txtQuantite.setText("0");
+				}
+			 } catch (NumberFormatException i) {
+					JOptionPane.showMessageDialog(this,
+						    "Merci d'entrer des valeurs numériques",
+						    "Valeur non valide",
+						    JOptionPane.WARNING_MESSAGE);
+		    }
 		}
 	}
 

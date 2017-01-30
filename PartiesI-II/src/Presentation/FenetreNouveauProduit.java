@@ -4,21 +4,17 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import Application.XPControlProduits;
-import Metier.I_Produit;
-import Metier.Produit;
+import Application.ControleurFrontal;
 
+@SuppressWarnings("serial")
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8141806231992288500L;
 	private JTextField txtPrixHT;
 	private JTextField txtNom;
 	private JTextField txtQte;
 //	private JComboBox<String> combo;
 	private JButton btValider;
+private ControleurFrontal controlFrontal;
 	
 
 	public FenetreNouveauProduit() {	
@@ -53,6 +49,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 		btValider.addActionListener(this);
 		setVisible(true);
+		controlFrontal = ControleurFrontal.getInstance();
 		
 	}
 
@@ -64,13 +61,12 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 				double pxHT = Double.parseDouble(txtPrixHT.getText());
 				int qte = Integer.parseInt(txtQte.getText());
-
-				I_Produit p = new Produit(nom,pxHT,qte);
-				if(XPControlProduits.XPAjouterProduit(p)){
+				
+				if(controlFrontal.ajouterProduit(nom,qte,pxHT)){
 					JOptionPane.showMessageDialog(this,
 						    "Produit " + nom
 						    + " créé!",
-						    "Suppression",
+						    "Création",
 						    JOptionPane.INFORMATION_MESSAGE);
 					this.dispose();
 				} else {
@@ -81,10 +77,9 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 				}
 		    } catch (NumberFormatException i) {
 					JOptionPane.showMessageDialog(this,
-						    "Merci de remplir avec des valeurs valides",
+						    "Merci d'entrer des valeurs valides",
 						    "Valeurs non valides",
 						    JOptionPane.WARNING_MESSAGE);
-				
 		    }
 			
 		}

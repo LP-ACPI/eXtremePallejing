@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.13" icons="true">  
+  <object id="1" language="java" name="Presentation.FenetreVente" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Presentation/FenetreVente.java" binary="false" label="fenetreVente" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="8" y="0"/>  
+  </object>  
+  <object id="2" language="java" name="Presentation.FenetreAchat" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Presentation/FenetreAchat.java" binary="false" label="fenetreAchat :" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="22" y="0"/>    
+    <execution id="3">      
+      <position height="551" width="99" x="5" y="99"/>    
+    </execution>  
+  </object>  
+  <object id="8" language="java" name="Application.ControleurFrontal" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Application/ControleurFrontal.java" binary="false" 
+    label="controleurFrontal :" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="180" y="0"/>    
+    <execution id="5">      
+      <position height="253" width="122" x="108" y="120"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="244" width="122" x="108" y="385"/>    
+    </execution>  
+  </object>  
+  <object id="13" language="java" name="Application.ControleurStock" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Application/ControleurStock.java" binary="false" label="controlStock :" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="211" width="0" x="0" y="141"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="202" width="0" x="0" y="406"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="Metier.Catalogue" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Metier/Catalogue.java" binary="false" label="catalogue :" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="534" y="0"/>    
+    <execution id="15">      
+      <position height="155" width="80" x="448" y="176"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="21" width="0" x="0" y="218"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="160" width="80" x="354" y="427"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="21" width="0" x="0" y="469"/>    
+    </execution>  
+  </object>  
+  <object id="27" language="java" name="Metier.Produit" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Metier/Produit.java" binary="false" label="produit :" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="583" y="0"/>    
+    <execution id="22">      
+      <position height="63" width="64" x="438" y="247"/>    
+    </execution>    
+    <execution id="26">      
+      <position height="63" width="64" x="438" y="503"/>    
+    </execution>  
+  </object>  
+  <object id="32" language="java" name="DAO.I_ProduitDAO" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/DAO/I_ProduitDAO.java" binary="false" label="ProduitDAO" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="29">      
+      <position height="21" width="0" x="0" y="268"/>    
+    </execution>    
+    <execution id="31">      
+      <position height="21" width="0" x="0" y="524"/>    
+    </execution>  
+  </object>  
+  <message id="4" operation="approvisionnerStock(java.lang.String,int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="6" operation="liquiderStock(java.lang.String,int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="9" operation="approvisionnerStock(java.lang.String,int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="liquiderStock(java.lang.String,int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="14" operation="acheterStock(java.lang.String,int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="16" operation="vendreStock(java.lang.String,int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="19" operation="getProduitParNom(java.lang.String):Metier.I_Produit" asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" operation="ajouter(int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="23" operation="getProduitParNom(java.lang.String):Metier.I_Produit" asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="24"/>  
+  </message>  
+  <message id="25" operation="enlever(int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="28" operation="update(Metier.I_Produit):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="29"/>  
+  </message>  
+  <message id="30" operation="update(Metier.I_Produit):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="31"/>  
+  </message>
+</sequence-diagram>

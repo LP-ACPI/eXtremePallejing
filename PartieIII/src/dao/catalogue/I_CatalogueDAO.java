@@ -16,4 +16,6 @@ public interface I_CatalogueDAO {
 
 	public abstract List<I_Catalogue> readAll() throws DAOException;
 
+	int getProductCount(I_Catalogue catalogue) throws DAOException;
+
 }

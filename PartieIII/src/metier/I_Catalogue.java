@@ -2,7 +2,6 @@ package metier;
 import java.util.List;
 
 import dao.DAOException;
-import dao.fabrique.FabriqueAbstraiteDAO;
 
 public interface I_Catalogue {
 
@@ -16,7 +15,7 @@ public interface I_Catalogue {
 	public abstract double getMontantTotalTTC();
 	public abstract String toString();
 	public abstract String getNom();
-	
+
+	void persist() throws DAOException;
 	public abstract void clear() throws DAOException;
-	public abstract void setDAO(FabriqueAbstraiteDAO FA);
 }

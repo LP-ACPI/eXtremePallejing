@@ -2,7 +2,7 @@ package application;
 
 import dao.DAOException;
 import metier.I_Catalogue;
-import metier.I_Produit;
+import metier.Produit;
 
 public class ControleurProduits {
 
@@ -12,11 +12,11 @@ public class ControleurProduits {
 		produits = prods;
 	}
 
-	public static boolean XPAjouterProduit(I_Produit p) throws DAOException{
-		return produits.addProduit(p);
+	public static boolean ajouterProduit(String nomProduit,double prixHT,int quantite) throws DAOException{
+		return produits.addProduit(new Produit(nomProduit,prixHT,quantite));
 	}
 	
-	public static boolean XPEnleverProduit(String nomProduit) throws DAOException{
+	public static boolean enleverProduit(String nomProduit) throws DAOException{
 		return produits.removeProduit(nomProduit);
 	}
 	

@@ -19,11 +19,11 @@ public class ControleurStock {
 		stock = catalogue;
 	}
 	
-	public static boolean XPApprovisionnerStock(String nomProduit, int quantite) throws DAOException{
+	public static boolean approvisionnerStock(String nomProduit, int quantite) throws DAOException{
 		return stock.acheterStock(nomProduit, quantite);
 	}
 	
-	public static boolean XPLiquiderStock(String nomProduit, int quantite) throws DAOException{
+	public static boolean liquiderStock(String nomProduit, int quantite) throws DAOException{
 		return stock.vendreStock(nomProduit, quantite);
 	}
 	

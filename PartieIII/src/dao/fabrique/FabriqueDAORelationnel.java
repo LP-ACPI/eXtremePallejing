@@ -10,22 +10,14 @@ import dao.produit.ProduitDAORelationnel;
 public class FabriqueDAORelationnel extends FabriqueAbstraiteDAO{
 
 	@Override
-	public I_ProduitDAO createProduitDAO() {
-		try {
+	public I_ProduitDAO createProduitDAO() throws DAOException  {
 			return new ProduitDAORelationnel(ConnexionDAORelationnel.getInstance().getConnexion());
-		} catch (DAOException e) {
-			e.printStackTrace();
-			return null;
-		}
+
 	}
 
 	@Override
-	public I_CatalogueDAO createCatalogueDAO() {
-		try {
+	public I_CatalogueDAO createCatalogueDAO() throws DAOException{
 			return new CatalogueDAORelationnel(ConnexionDAORelationnel.getInstance().getConnexion());
-		} catch (DAOException e) {
-			e.printStackTrace();
-			return null;
-		}
+
 	}
 }

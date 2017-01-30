@@ -9,7 +9,7 @@ import metier.I_Catalogue;
 
 public class CatalogueInfosObservables{
 
-private List<DetailCatalogue> catalogues   			  = new ArrayList<DetailCatalogue>();
+	private List<DetailCatalogue> catalogues   		  = new ArrayList<DetailCatalogue>();
 	private List<ObserverInfosCatalogues> observators = new ArrayList<ObserverInfosCatalogues>();
 	
 	public CatalogueInfosObservables(List<I_Catalogue> catalogues) {
@@ -51,26 +51,6 @@ private List<DetailCatalogue> catalogues   			  = new ArrayList<DetailCatalogue>
 		return false;
 	}
 	
-	private boolean ajoutCataloguePossible(String nomCatalogue) {
-		boolean ajoutOk = true;
-		for(DetailCatalogue dc : catalogues)
-			if(dc.getNomCatalogue().equals(nomCatalogue))
-				ajoutOk = false;
-		avertir();
-		return ajoutOk;
-	}
-	
-	private void rangerInfosObservables(){
-		if (catalogues.size() > 0) {
-			  Collections.sort(catalogues, new Comparator<DetailCatalogue>() {
-			      @Override
-			      public int compare(final DetailCatalogue dc1, final DetailCatalogue dc2) {
-			          return dc1.getNomCatalogue().compareTo(dc2.getNomCatalogue());
-			      }
-			  });
-			}
-	}
-
 	public boolean supprimerCatalogue(String nomCatalogue){
 		boolean supprimOk = false;
 		for(DetailCatalogue dc : catalogues)
@@ -91,7 +71,7 @@ private List<DetailCatalogue> catalogues   			  = new ArrayList<DetailCatalogue>
 		
 		for(int i = 0; i<nombreDeCatalogues; i++)
 			detailsCatalogues[i] = nomsCatalogues[i] + " : " + nombresDeProduitParCatalogue[i] + " produits";
-		
+
 		return detailsCatalogues;		
 	}
 	
@@ -104,6 +84,26 @@ private List<DetailCatalogue> catalogues   			  = new ArrayList<DetailCatalogue>
 		rangerInfosObservables();
 		for(ObserverInfosCatalogues o : observators)
 			o.mettreAJour(this);
+	}
+	
+	private void rangerInfosObservables(){
+		if (catalogues.size() > 0) {
+		  Collections.sort(catalogues, new Comparator<DetailCatalogue>() {
+			      @Override
+		      public int compare(final DetailCatalogue dc1, final DetailCatalogue dc2) {
+			          return dc1.getNomCatalogue().compareTo(dc2.getNomCatalogue());
+		      }
+		  });
+		}
+	}
+	
+	private boolean ajoutCataloguePossible(String nomCatalogue) {
+		boolean ajoutOk = true;
+		for(DetailCatalogue dc : catalogues)
+			if(dc.getNomCatalogue().equals(nomCatalogue))
+				ajoutOk = false;
+		avertir();
+		return ajoutOk;
 	}
 	
 	private class DetailCatalogue {

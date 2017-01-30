@@ -1,7 +1,6 @@
 package metier;
 
 import dao.DAOException;
-import dao.fabrique.FabriqueAbstraiteDAO;
 
 public interface I_Produit {
 
@@ -13,7 +12,4 @@ public interface I_Produit {
 	public abstract double getPrixUnitaireTTC();
 	public abstract double getPrixStockTTC();
 	public abstract String toString();
-	
-	public abstract void setDAO(FabriqueAbstraiteDAO FA);
-
 }

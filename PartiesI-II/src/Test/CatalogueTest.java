@@ -10,7 +10,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
-import Application.FrontController;
+import DAO.ConnexionDAO;
 import Metier.Catalogue;
 import Metier.I_Catalogue;
 import Metier.I_Produit;
@@ -20,7 +20,6 @@ import Metier.Produit;
 public class CatalogueTest {
 
 	I_Catalogue cat;
-	
 	@Before
 	public void setUp() {
 		cat = new Catalogue();
@@ -30,7 +29,7 @@ public class CatalogueTest {
 
     @AfterClass
 	public static void cleanUp(){
-		FrontController.quit();
+    	ConnexionDAO.getInstance().closeConnexion();
 	}	
 	
 	@Test

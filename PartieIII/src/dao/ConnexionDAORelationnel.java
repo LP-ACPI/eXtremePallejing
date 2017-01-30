@@ -32,7 +32,7 @@ public class ConnexionDAORelationnel extends ConnexionDAO {
 	}
 
 	public synchronized static ConnexionDAORelationnel getInstance() throws DAOException{
-		if(instance == null)
+		if(instance == null || !(instance instanceof ConnexionDAORelationnel))
 			instance = new ConnexionDAORelationnel();
 		return (ConnexionDAORelationnel) instance;
 	}	
@@ -41,7 +41,6 @@ public class ConnexionDAORelationnel extends ConnexionDAO {
 		ConnexionDAORelationnel.connexion = connexion;
 	}
 	
-	@Override
 	public Connection getConnexion() {
 		return connexion;
 	}

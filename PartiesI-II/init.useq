@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.13" icons="true">  
+  <object id="1" language="java" name="Presentation.FenetrePrincipale" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Presentation/FenetrePrincipale.java" binary="false" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="2">      
+      <position height="21" width="0" x="0" y="554"/>    
+    </execution>  
+  </object>  
+  <object id="3" language="java" name="Application.ControleurFrontal" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Application/ControleurFrontal.java" binary="false" label="controleurFrontal" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="175" y="0"/>    
+    <execution id="4">      
+      <position height="504" width="122" x="5" y="113"/>    
+    </execution>  
+  </object>  
+  <object id="7" language="java" name="Application.ControleurFrontal" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Application/ControleurFrontal.java" binary="false" label="innstance" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="313" y="0"/>    
+    <execution id="6">      
+      <position height="462" width="122" x="131" y="134"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="21" width="0" x="0" y="260"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="21" width="0" x="0" y="365"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="21" width="0" x="0" y="470"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="Application.ControleurAffichageStock" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Application/ControleurAffichageStock.java" binary="false" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>  
+  </object>  
+  <object id="18" language="java" name="Application.ControleurStock" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Application/ControleurStock.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>  
+  </object>  
+  <object id="19" language="java" name="Application.ControleurProduits" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Application/ControleurProduits.java" binary="false" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>  
+  </object>  
+  <object id="20" language="java" name="Metier.Catalogue" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/Metier/Catalogue.java" binary="false" label="catalogue" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="63" width="0" x="0" y="155"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="DAO.I_ProduitDAO" project="eXtremePallejing-parties1-2" 
+    file="/eXtremePallejing-parties1-2/src/DAO/I_ProduitDAO.java" binary="false" label="produitDAO" type="interface" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="22">      
+      <position height="21" width="0" x="0" y="176"/>    
+    </execution>  
+  </object>  
+  <message id="5" operation="ControleurFrontal()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="8" operation="Catalogue()" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="setControlAfficheStock(Application.ControleurAffichageStock):void" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" operation="setControlStock(Application.ControleurStock):void" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="14" operation="setControlProduits(Application.ControleurProduits):void" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="16" operation="FenetrePrincipale(Application.ControleurFrontal)" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </message>  
+  <message id="21" operation="readAll():java.util.List&lt;I_Produit&gt;" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>
+</sequence-diagram>

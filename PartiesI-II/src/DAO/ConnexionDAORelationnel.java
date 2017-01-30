@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class ConnexionDAORelationnel extends ConnexionDAO {
 	
 	private static String driver= "oracle.jdbc.driver.OracleDriver";
-	private static String url 	= "jdbc:oracle:thin:@162.38.222.149:1521:iut";
-	private static String login = "necesanym";
-	private static String mdp 	= "Neces#9A";
+	private static String url 	= "jdbc:oracle:thin:@nope";
+	private static String login = "test";
+	private static String mdp 	= "test";
 	private static Connection connexion;
 		
 	public ConnexionDAORelationnel(){
@@ -21,7 +21,6 @@ public class ConnexionDAORelationnel extends ConnexionDAO {
 			
 			e.printStackTrace();
 		}
-
 	}
 	
 	public ConnexionDAORelationnel(String driver,String url,String login,String mdp) {

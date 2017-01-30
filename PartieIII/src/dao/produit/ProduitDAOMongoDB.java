@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import dao.ConnexionDAOMongoDB;
+import dao.DAOException;
 import metier.I_Catalogue;
 import metier.I_Produit;
 import metier.Produit;
@@ -69,7 +70,7 @@ public class ProduitDAOMongoDB implements I_ProduitDAO{
 	}
 
 	@Override
-	public I_Produit read(String nomProduit) {
+	public I_Produit read(String nomProduit) throws DAOException {
 		I_Produit produit = null;
 		Document catalProdDoc = collectionCatalogues.find(new Document("nomCatalogue", nomCatalogue)).first();
 		List<Document> prodColl = (List<Document>) catalProdDoc.get("produits");

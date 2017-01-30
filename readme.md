@@ -26,25 +26,15 @@ Design patterns et architectures utilisés:
 
 suite des parties précédentes, avec ajout des fonctionnalités daffichage de détails, d'ajout, de suppression et de sélection de Catalogues.
 
-> Pour changer de technologie de persistance (Relationnel - XML - *autres à venir (Objet relationnel, NoSQL)*):
->> Dans le renvoi de l'instance de `FabriqueAbstraiteDAO`, choisir la technologie `XXX` dans l'instanciation de `FabriqueDAOXXX`
+> Pour changer de technologie de persistance (Relationnel - XML - MongoDB (préconfiguré pour un serveur MongoDB local)):
+>> Dans main de `ControleurAccueil` mettre l'instance la fabrique souhaitée dans `FabriqueAbstraiteDAO.setInstance(new FabriqueDAOXXX()`, où `XXX` correspond au choix de la technologie 
 
 Ajouts et changements par rapport à la partie précédente:
 
 - nouvelle fenêtre et guise d'accueil
-- designe pattern d'observateur sur la gestion de catalogues lié cette fenêtre
+- design pattern d'observateur sur la gestion des catalogues lié cette fenêtre
 - Fabrique abstraite à la place des fabriques concrètes
-- Data-gateway changé en Data-Mapper
-- CataloguesDAO (xml et relationnel) ajoutés
+- Data-gateway en fenêtre principale, Data-Mapper à l'accueil
+- CataloguesDAO (xml, relationnel, MongoDB)
 - ProduitsDAO adaptés pour réagir au Catalogue où le produit se situe
 
----
-
-### TO DO
-
-- refactoring
-- Exceptions (DAO)
-> dans `xxxDAO` (où `xxx` est une classe métier) placer `throw new DAOException(message);` dans le catch du `try/catch` déjà là + ajouter les try/catch là où il faut
-- tests adaptés
-- DAOs pour NoSQL (MongoDB,Cassandra ?) et objet Relationnel oracle
-- (optionnel) Partie IV : Gestion des catégories de produits

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.13" icons="true">  
+  <object id="1" language="java" name="presentation.FenetreAccueil" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/presentation/FenetreAccueil.java" binary="false" label="fenetreAccueil" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="152" y="0"/>    
+    <execution id="2">      
+      <position height="241" width="108" x="5" y="101"/>    
+    </execution>  
+  </object>  
+  <object id="7" language="java" name="presentation.FenetrePrincipale" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/presentation/FenetrePrincipale.java" binary="false" label="fenetrePrincipale" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="127" y="0"/>    
+    <execution id="6">      
+      <position height="21" width="123" x="117" y="300"/>    
+    </execution>  
+  </object>  
+  <object id="8" language="java" name="application.ControleurAccueil" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/application/ControleurAccueil.java" binary="false" label="controleurAccueil" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="233" y="0"/>    
+    <execution id="4">      
+      <position height="189" width="125" x="117" y="122"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="dao.catalogue.I_CatalogueDAO" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/dao/catalogue/I_CatalogueDAO.java" binary="false" label="catalogDAO" 
+    type="interface" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="0" x="0" y="143"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="application.ControleurAfficheStock" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/application/ControleurAfficheStock.java" binary="false" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="185"/>    
+    </execution>  
+  </object>  
+  <object id="19" language="java" name="application.ControleurProduits" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/application/ControleurProduits.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="227"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="application.ControleurStock" project="eXtremePallejing-partie3" 
+    file="/eXtremePallejing-partie3/src/application/ControleurStock.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="21" width="0" x="0" y="269"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="selectionnerCatalogue(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="FenetrePrincipale()" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="9" operation="read(java.lang.String):metier.I_Catalogue" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="ControleurAfficheStock(metier.I_Catalogue)" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="ControleurProduits(metier.I_Catalogue)" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="ControleurStock(metier.I_Catalogue)" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>
+</sequence-diagram>

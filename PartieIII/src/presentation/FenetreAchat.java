@@ -47,7 +47,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 			int qteAchat = Integer.parseInt(txtQuantite.getText());
 			
 			try {
-				if(ControleurStock.XPApprovisionnerStock(selectionProduit,qteAchat)) {
+				if(ControleurStock.approvisionnerStock(selectionProduit,qteAchat)) {
 					this.dispose();
 				} else {
 					JOptionPane.showMessageDialog(this,
@@ -57,7 +57,12 @@ public class FenetreAchat extends JFrame implements ActionListener {
 						    JOptionPane.WARNING_MESSAGE);
 					txtQuantite.setText("0");
 				}
-			} catch (HeadlessException | DAOException exception) {
+			}  catch (NumberFormatException exceptioni) {
+				JOptionPane.showMessageDialog(this,
+					    "Merci d'entrer des valeurs valeurs numériques",
+					    "Valeurs non valides",
+					    JOptionPane.WARNING_MESSAGE);			
+		    } catch (DAOException | HeadlessException  exception) {
 				JOptionPane.showMessageDialog(this,
 						exception.getMessage(),
 					    "Erreur !",

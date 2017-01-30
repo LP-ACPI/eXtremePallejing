@@ -1,5 +1,6 @@
 package dao.fabrique;
 
+import dao.DAOException;
 import dao.catalogue.I_CatalogueDAO;
 import dao.produit.I_ProduitDAO;
 
@@ -19,9 +20,9 @@ public abstract class FabriqueAbstraiteDAO {
 		FabriqueAbstraiteDAO.instance = instance;
 	}
 
-	public abstract I_ProduitDAO createProduitDAO();
+	public abstract I_ProduitDAO createProduitDAO() throws DAOException;
 
-	public abstract I_CatalogueDAO createCatalogueDAO();
+	public abstract I_CatalogueDAO createCatalogueDAO() throws DAOException;
 
 
 }

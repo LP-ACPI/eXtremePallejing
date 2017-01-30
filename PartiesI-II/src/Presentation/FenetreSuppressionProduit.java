@@ -4,16 +4,15 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import Application.XPControlProduits;
+import Application.ControleurFrontal;
+import Application.ControleurProduits;
 
+@SuppressWarnings("serial")
 public class FenetreSuppressionProduit extends JFrame implements ActionListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JButton btSupprimer;
 	private JComboBox<String> combo;
+	private ControleurFrontal controlFrontal;
 		
 	public FenetreSuppressionProduit() {
 		
@@ -23,21 +22,20 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 		contentPane.setLayout(new FlowLayout());
 		btSupprimer = new JButton("Supprimer");
 
-		combo = new JComboBox<String>(XPControlProduits.listeNomsProduits());
+		combo = new JComboBox<String>(ControleurProduits.listeNomsProduits());
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
 		contentPane.add(btSupprimer);
 
 		btSupprimer.addActionListener(this);
-		
-
 		this.setVisible(true);
+		controlFrontal = ControleurFrontal.getInstance();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btSupprimer){
-			if(XPControlProduits.XPEnleverProduit(combo.getSelectedItem().toString())){
+			if(controlFrontal.enleverProduit(combo.getSelectedItem().toString())){
 				JOptionPane.showMessageDialog(this,
 					    "Produit " + combo.getSelectedItem().toString()
 					    + " supprimé!",

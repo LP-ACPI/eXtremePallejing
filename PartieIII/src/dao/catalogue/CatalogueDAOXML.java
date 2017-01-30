@@ -9,6 +9,7 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
+import dao.DAOException;
 import metier.Catalogue;
 import metier.I_Catalogue;
 import metier.I_Produit;
@@ -76,7 +77,7 @@ public class CatalogueDAOXML implements I_CatalogueDAO {
 	}
 
 	@Override
-	public I_Catalogue read(String nomCatalogue) {
+	public I_Catalogue read(String nomCatalogue) throws DAOException {
 		Element e = chercheCatalogue(nomCatalogue);
 		I_Catalogue catalogue = e == null ? null : new Catalogue(nomCatalogue);
 		List<Element> lProduits = e.getChildren("produit");
@@ -107,6 +108,11 @@ public class CatalogueDAOXML implements I_CatalogueDAO {
 		}
 		return lcats;
 	}
+	
+	@Override
+	public int getProductCount(I_Catalogue catalogue){
+		return chercheCatalogue(catalogue.getNom()).getContentSize();
+	}
 
 
 	private Element chercheCatalogue(String nom) {
@@ -120,6 +126,8 @@ public class CatalogueDAOXML implements I_CatalogueDAO {
 		else
 			return null;
 	}
+	
+	
 	
 	private boolean sauvegarde() {
 		System.out.println("Sauvegarde");

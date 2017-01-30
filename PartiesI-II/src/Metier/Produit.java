@@ -1,7 +1,7 @@
 package Metier;
 
 import DAO.I_ProduitDAO;
-import Fabrique.*;
+import DAO.Fabrique.*;
 
 public class Produit implements I_Produit {
 
@@ -18,7 +18,6 @@ public class Produit implements I_Produit {
 		this.prixUnitaireHT = prixUnitaireHT;
 		this.quantiteStock = quantiteStock;
 	}
-
 
 	@Override
 	public boolean ajouter(int qteAchetee) {

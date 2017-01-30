@@ -10,7 +10,7 @@ public class FenetreAffichage extends JFrame implements ActionListener {
 
 	private JButton btOK;
 	
-	public FenetreAffichage(String texte) {
+	public FenetreAffichage() {
 
 		setTitle("Produits du catalogue " + ControleurAfficheStock.getNomCatalog());
 		setBounds(500, 500, 450, 250);
@@ -19,7 +19,7 @@ public class FenetreAffichage extends JFrame implements ActionListener {
 		panHaut.setLayout(new BorderLayout());
 		panBas.setLayout(new FlowLayout());
 		
-		JTextArea jtaSortie = new JTextArea(texte,10,5);
+		JTextArea jtaSortie = new JTextArea(ControleurAfficheStock.AfficherCatalogue(),10,5);
 		btOK = new JButton("Quitter");
 		
 		Container contentPane = getContentPane();
