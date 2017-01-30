@@ -1,8 +1,10 @@
 package dao.catalogue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.DAOException;
+import metier.Catalogue;
 import metier.I_Catalogue;
 
 public class CatalogueDAO_mockOK implements I_CatalogueDAO{
@@ -23,13 +25,13 @@ public class CatalogueDAO_mockOK implements I_CatalogueDAO{
 	}
 
 	@Override
-	public I_Catalogue read(String nomCatalogue) {
-		return null;
+	public I_Catalogue read(String nomCatalogue) throws DAOException {
+		return new Catalogue("bidon");
 	}
 
 	@Override
 	public List<I_Catalogue> readAll() {
-		return null;
+		return new ArrayList<I_Catalogue>();
 	}
 
 	@Override

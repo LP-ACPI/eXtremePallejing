@@ -89,7 +89,7 @@ public class ControleurAccueil {
 	public static void main(String[] args) {		
 		
 		try {
-			FabriqueAbstraiteDAO.setInstance(new FabriqueDAOMongoDB());
+			FabriqueAbstraiteDAO.setInstance(new FabriqueDAORelationnel());
 			ControleurAccueil.getInstance();
 			
 		} catch (DAOException exception) {
